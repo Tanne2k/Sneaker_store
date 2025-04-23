@@ -1,0 +1,64 @@
+﻿@page "/Admin/Role/users/"
+@model Lab03.Areas.Admin.Pages.Role.UserModel
+@{
+    // ViewData["Title"] = "DANH SÁCH NGƯỜI DÙNG";
+    ViewData["Title"] = "Danh sách người dùng";
+}
+
+<div>
+    <div class="container-fluid text-center  p-3 rounded text-black">
+        <h2>@ViewData["Title"]</h2>
+    </div>
+    <partial name="_StatusMessage" model="@Model.StatusMessage" />
+
+    <table class="table table-striped">
+        <tr>
+            <th>Tên người dùng</th>
+            <th>Vai trò</th>
+            @* <th>Trạng thái</th> *@
+            <th>Lựa chọn</th>
+        </tr>
+        @foreach (var user in @Model.users)
+        {
+            if (user.listroles != "Admin")
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>@user.listroles</td>
+                    @* if (user.LockoutEnd != null && user.LockoutEnd > DateTime.Now)
+            {
+            <td>Bị khóa</td>
+            }
+            else
+            {
+
+            <td>Không khóa</td>
+            } *@
+                    <td>
+                        <form method="POST" class="d-inline">
+                            <button name="Input.ID" value="@user.Id" class="btn btn-primary "
+                                    asp-page="./AddUserRole">
+                                Cập nhật vai trò
+                            </button>
+                        </form>
+
+                        @* <a class="btn btn-primary" asp-page="./SetPassword" asp-route-id="@user.Id">Đặt lại mật khẩu</a> *@
+
+
+                        @* <form method="POST" class="d-inline">
+                <button name="Input.ID" value="@user.Id" class="btn btn-primary btn-sm"
+                asp-page="./SetPassword">
+                Đặt lại mật khẩu
+                </button>
+                </form> *@
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+</div>
+

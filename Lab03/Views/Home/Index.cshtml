@@ -1,0 +1,526 @@
+﻿@* @model IEnumerable<Lab03.Models.Product> *@
+@* @model X.PagedList.IPagedList<Lab03.Models.Product> *@
+@model X.PagedList.IPagedList<Lab03.ViewModels.SanPhamVM>
+@using X.PagedList.Mvc.Core
+
+
+@{
+    ViewData["Title"] = "Trang chủ";
+    // int numOfQuantity = 1;
+}
+
+@* Thêm các banner động vào trang *@
+@* <div id="left-banner" class="fixed-banner">
+    <a asp-area="" asp-controller="Product" asp-action="Index"><img src="https://storage.pixteller.com/designs/designs-images/2020-12-21/05/sneakers-sport-gym-sale-banner-1-5fe0c473ed563.png" class="img-fluid w-100 rounded banner-img" alt="Left Banner"></a>
+</div>
+<div id="right-banner" class="fixed-banner">
+    <a asp-area="" asp-controller="Product" asp-action="Index"><img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/insta-story-blue-sport-shoe-for-sale-design-template-3ee8dd448b63b9e7a91dd7febd685cc2_screen.jpg?ts=1658317522" class="img-fluid w-100 rounded banner-img" alt="Right Banner"></a>
+</div> *@
+
+@* <div style="margin-top: 70px"></div> *@
+
+<style>
+    .fixed-banner {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 250px; /* Điều chỉnh chiều rộng của banner */
+        z-index: 1000;
+    }
+
+    #left-banner {
+        left: 20px; /* Điều chỉnh khoảng cách từ banner đến lề trái */
+    }
+
+    #right-banner {
+        right: 20px; /* Điều chỉnh khoảng cách từ banner đến lề phải */
+    }
+
+        #left-banner img, #right-banner img {
+            width: 100%;
+            height: 800px; /* Điều chỉnh chiều cao của banner */
+            object-fit: cover; /* Đảm bảo hình ảnh được cắt phù hợp */
+            transition: transform 0.3s ease-in-out; /* Hiệu ứng chuyển đổi mượt mà */
+        }
+
+    .banner-img:hover {
+        transform: scale(1.2); /* Phóng to 1.2 lần khi lia chuột */
+    }
+</style>
+
+@* <div class="py-5 mb-5" style="margin-top: 70px"> *@
+<div  style="margin-top: 170px">
+
+
+    <style>
+        .carousel-item {
+    width: 100%; /* Ensures the carousel items are full width */
+    height: 500px; /* Sets a fixed height for all carousel items */
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the images cover the entire area without distortion */
+}
+
+.banner-container {
+    width: 100%;
+    height: auto; /* Allows the container to adjust based on content */
+    position: relative;
+    overflow: hidden; /* Hides any overflow content */
+}
+
+.carousel-inner {
+    height: 100%; /* Makes sure the inner container fills the carousel container */
+}
+
+    </style>
+
+    @* <div class="container-fluid features py-5"> *@
+    <div class="container-fluid features">
+    <div class="banner-container">
+        <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel" data-bs-interval="2000">
+            <div class="carousel-inner" role="listbox">
+                <div class="carousel-item active rounded">
+                    <img src="~/template/img/banner6.png" class="img-fluid rounded" alt="First slide">
+                    <a asp-area="" asp-controller="Product" asp-action="Index" class="btn px-4 py-2 text-white rounded">Puma</a>
+                </div>
+                <div class="carousel-item rounded">
+                    <img src="~/template/img/banner3.png" class="img-fluid rounded" alt="Three slide">
+                    <a asp-area="" asp-controller="Product" asp-action="Index" class="btn px-4 py-2 text-white rounded">Nike</a>
+                </div>
+                <div class="carousel-item rounded">
+                    <img src="~/template/img/banner4.png" class="img-fluid rounded" alt="Four slide">
+                    <a asp-area="" asp-controller="Product" asp-action="Index" class="btn px-4 py-2 text-white rounded">Jordan</a>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div style="margin-top: 20px"></div>
+
+    <div class="row row--xs">
+    <div class="col Bands-item">
+        <div class="Band HeroBand Theme--light align-center">
+            <a class="Link" target="_self" data-context="{&quot;content&quot;:&quot;basketball_20240513&quot;,&quot;type&quot;:&quot;&quot;}" asp-action="Index" asp-area="" asp-controller="Product"><span>
+                <picture><img alt="SHOP BASKETBALL" class="Hero-image" loading="lazy" src="https://images.footlocker.com/content/dam/final/footlocker/site/homepage/2024/may/240505-fl-flca-summer-basketball-6up.jpg"></picture></span>
+            </a>
+        </div>
+    </div>
+    <div class="col Bands-item">
+        <div class="Band HeroBand Theme--light align-center">
+            <a class="Link" target="_self" data-context="{&quot;content&quot;:&quot;running_20240513&quot;,&quot;type&quot;:&quot;&quot;}" asp-action="Index" asp-area="" asp-controller="Product"><span>
+                <picture><img alt="SHOP RUNNING" class="Hero-image" loading="lazy" src="https://images.footlocker.com/content/dam/final/footlocker/site/homepage/2024/may/240505-fl-flca-summer-running-6up.jpg"></picture></span>
+            </a>
+        </div>
+    </div>
+    <div class="col Bands-item">
+        <div class="Band HeroBand Theme--light align-center">
+            <a class="Link" target="_self" data-context="{&quot;content&quot;:&quot;lifestyle_20240513&quot;,&quot;type&quot;:&quot;&quot;}" asp-action="Index" asp-area="" asp-controller="Product"><span>
+                <picture><img alt="SHOP CASUAL" class="Hero-image" loading="lazy" src="https://images.footlocker.com/content/dam/final/footlocker/site/homepage/2024/may/240505-fl-flca-summer-lifestyle-6up.jpg"></picture></span>
+            </a>
+        </div>
+    </div>
+    <div class="col Bands-item">
+        <div class="Band HeroBand Theme--light align-center">
+            <a class="Link" target="_self" data-context="{&quot;content&quot;:&quot;classics_20240513&quot;,&quot;type&quot;:&quot;&quot;}" asp-action="Index" asp-area="" asp-controller="Product"><span>
+                <picture><img alt="SHOP CLASSICS" class="Hero-image" loading="lazy" src="https://images.footlocker.com/content/dam/final/footlocker/site/homepage/2024/may/240505-fl-flca-summer-classics-6up.jpg"></picture></span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .row {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+}
+
+.Bands-item {
+    flex: 1;
+    margin: 0 -15px; /* Adds spacing between items */
+}
+
+.Bands-item:first-child {
+    margin-left: 0; /* Removes left margin for the first item */
+}
+
+.Bands-item:last-child {
+    margin-right: 0; /* Removes right margin for the last item */
+}
+
+.Band {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+}
+
+.Hero-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+</style>
+
+
+    @* Quyền lợi *@
+    <div class="container-fluid featurs">
+        @*  <div class="container py-5"> *@
+
+        @* <div class="row justify-content-center">
+            <div class="col-auto text-center">
+                <h2 class="text-dark">Quyền Lợi</h2>
+            </div>
+        </div> *@
+
+        @* <div class="mb-5"></div> *@ @* thêm khoảng cách*@
+
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="featurs-item text-center rounded bg-light p-4">
+                    <div class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
+                        <i class="fas fa-car-side fa-3x text-white"></i>
+                    </div>
+                    <div class="featurs-content text-center">
+                        <h5>Miễn phí vận chuyển</h5>
+                        <p class="mb-0">Giao hàng miễn phí với đơn hàng trên $300</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="featurs-item text-center rounded bg-light p-4">
+                    <div class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
+                        <i class="fas fa-user-shield fa-3x text-white"></i>
+                    </div>
+                    <div class="featurs-content text-center">
+                        <h5>Thanh toán an toàn</h5>
+                        <p class="mb-0">100% cuộc giao dịch của bạn được bảo mật</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="featurs-item text-center rounded bg-light p-4">
+                    <div class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
+                        <i class="fas fa-exchange-alt fa-3x text-white"></i>
+                    </div>
+                    <div class="featurs-content text-center">
+                        <h5>30 ngày hoàn trả</h5>
+                        <p class="mb-0">Sản phẩm có vấn đề? Có thể hoàn trả miễn phí trong 30 ngày</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="featurs-item text-center rounded bg-light p-4">
+                    <div class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
+                        <i class="fa fa-phone-alt fa-3x text-white"></i>
+                    </div>
+                    <div class="featurs-content text-center">
+                        <h5>Hỗ trợ 24/7</h5>
+                        <p class="mb-0">Luôn hỗ trợ, giải đáp thắc mắc mọi lúc, mọi nơi</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @* </div> *@
+    </div>
+
+    <div style="margin-top: 30px"></div>
+
+    @* brand *@
+    @* <div class="container-fluid brands py-3 pb-0"> *@
+    <div class="container-fluid brands  ">
+        @* <div class="container py-5"> *@
+        @* <div class="row justify-content-center">
+        <div class="col-auto text-center">
+        <h2 class="text-dark">Thương Hiệu</h2>
+        </div>
+        </div> *@
+        @* <div class="mb-5"></div> *@
+        <div class="row justify-content-center align-items-center">
+            <div class="col">
+                <div class="row justify-content-center align-items-center brand-container">
+                    <div class="col-auto brand-logo"><img src="~/template/img/sparX.png" alt="Brand 1"></div>
+                    <div class="col-auto brand-logo"><img src="~/template/img/puma.png" alt="Brand 2"></div>
+                    <div class="col-auto brand-logo"><img src="~/template/img/converse.png" alt="Brand 3"></div>
+                    <div class="col-auto brand-logo"><img src="~/template/img/nike.png" alt="Brand 4"></div>
+                    <div class="col-auto brand-logo"><img src="~/template/img/reebok.png" alt="Brand 5"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center align-items-center">
+            <div class="col">
+                <div class="row justify-content-center align-items-center brand-container">
+                    <div class="col-auto brand-logo"><img src="~/template/img/jordan.png" alt="Brand 6"></div>
+                    <div class="col-auto brand-logo"><img src="~/template/img/levi.png" alt="Brand 7"></div>
+                    <div class="col-auto brand-logo"><img src="~/template/img/vejas.png" alt="Brand 8"></div>
+                    <div class="col-auto brand-logo"><img src="~/template/img/new balance.png" alt="Brand 9"></div>
+                    <div class="col-auto brand-logo"><img src="~/template/img/asics.png" alt="Brand 10"></div>
+                </div>
+            </div>
+        </div>
+        @* </div> *@
+    </div>
+
+    <div style="margin-top: 50px"></div>
+
+    @* sản phẩm *@
+    <section>
+        <div id="product-container">
+            <div class="container px-4 px-lg-5 mt-5">
+                @* <div class="row justify-content-center">
+                    <div class="col-auto text-center">
+                        <h2 class="text-dark">Sản phẩm</h2>
+                    </div>
+                </div>
+                <div class="mb-5"></div> *@
+
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+
+                    @foreach (var item in Model)
+                    {
+                        <div class="col mb-5">
+                            <div class="card gap-3" style="width: 18rem">
+                                <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">@item.TenLoai</div>
+                                @* <img src="@item.ImageUrl" class="card-img-top" alt="..." style="height: 300px"> *@
+                                <div class="card-body text-center">
+                                    <a asp-action="ChiTiet" asp-controller="Product" asp-route-id="@item.MaSP" method="post">
+                                        <div class="row align-items-center">
+                                            <img src="@item.Hinh" class="card-img-top" alt="..." style="height: 300px">
+                                            @* <input type="hidden" class="Id-input" value="@item.Id" /> *@
+                                            @* <button type="submit" class="btn btn-warning" style="width: 133px;">
+                                        <i class="bi bi-eye-fill me-1"></i>
+                                        </button> *@
+                                        </div>
+                                    </a>
+                                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.TenSP)</h5>
+                                    @* <span>Kích cỡ: @item.Kichco</span>
+                                <span>Màu: @item.Mau</span>
+                                <span>Giá: @item.Gia.ToString("#,##0") VNĐ</span> *@
+                                    <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
+                                        <div class="mb-2 text-center">
+                                            <strong>Màu:</strong>
+                                            <span>@item.Mau</span>
+                                        </div>
+                                        <div class="text-center">
+                                            <strong>Kích cỡ:</strong>
+                                            <span>@item.Kichco</span>
+                                        </div>
+                                    </div>
+                                    <p class="text-dark fs-5 fw-bold mb-0 text-center">Giá: @item.Gia.ToString("#,##0") VNĐ</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+
+        <style>
+            .pagination {
+                display: flex;
+                justify-content: center;
+                align-items: center; /* Căn chỉnh các thành phần theo chiều dọc */
+                list-style: none;
+                padding: 8px 0;
+            }
+
+                .pagination li {
+                    margin: 0 5px; /* Khoảng cách giữa các ô trang */
+                }
+
+                    .pagination li a {
+                        display: inline-block;
+                        padding: 8px 12px;
+                        background-color: white; /* Màu nền mặc định */
+                        color: black; /* Màu chữ mặc định */
+                        text-decoration: none;
+                        border-radius: 5px;
+                        transition: background-color 0.3s; /* Hiệu ứng màu khi di chuột */
+                        box-shadow: none; /* Xóa bóng đổ mặc định */
+                        line-height: 1; /* Thiết lập line-height cố định */
+                    }
+
+                        .pagination li a:hover {
+                            background-color: yellow; /* Màu vàng khi di chuột vào */
+                        }
+
+                    .pagination li.active a {
+                        background-color: #45a049; /* Màu xanh lá đậm cho ô trang đã chọn */
+                        box-shadow: none; /* Xóa bóng đổ của ô trang đã chọn */
+                    }
+
+                    /* Thiết lập kích thước của con số trong ô trang */
+                    .pagination li a span {
+                        display: inline-block;
+                        width: 100%; /* Đảm bảo rằng con số chiếm toàn bộ chiều rộng của ô trang */
+                        text-align: center; /* Căn giữa nội dung trong ô trang */
+                    }
+        </style>
+
+        @* <div>
+            <ul class="pagination">
+                <li><a href="@Url.Action("Index", "Home", new { page = 1 })">Trang đầu</a></li>
+                @Html.PagedListPager(Model, page => Url.Action("Index", "Home", new { page = page })) 
+                
+                <li><a href="@Url.Action("Index", "Home", new { page = Model.PageCount })">Trang cuối</a></li>
+            </ul>
+        </div> *@
+
+        <div>
+            <ul class="pagination">
+                <li><a asp-area="" asp-action="Index" asp-controller="Home" asp-route-page="1">Trang đầu</a></li>
+                @Html.PagedListPager(Model, page => Url.Action("Index", "Home", new { page = page }))
+
+                <li><a asp-area="" asp-action="Index" asp-controller="Home" asp-route-page="@Model.PageCount">Trang cuối</a></li>
+            </ul>
+        </div>
+
+
+        @* <span class="vc_sep_line"></span> *@
+
+        <div style="margin-top: 50px"></div>
+
+        @* banner rộng *@
+        <!-- Banner Section Start-->
+        <div class="container-fluid banner bg-secondary mb-5">
+            <div class="container py-5">
+                <div class="row g-4 align-items-center">
+                    <div class="col-lg-6">
+                        <div class="py-4">
+                            <h1 class="display-3 text-white">Nike Air Force 1</h1>
+                            <p class="fw-normal display-3 text-dark mb-4">Nice Shoes</p>
+
+                            <a asp-action="ChiTiet" asp-area="" asp-controller="Product" asp-route-id="1005" class="banner-btn btn border-2 border-white rounded-pill text-dark py-3 px-5">Xem chi tiết</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="position-relative">
+                            <img src="/images/air-1.png" style="width: 30%; height: 30%;" class="img-fluid w-100 rounded" alt="Nike Air Force 1 ">
+                            <div class="d-flex align-items-center justify-content-center bg-white rounded-circle position-absolute" style="width: 140px; height: 140px; top: 0; left: 0;">
+                                <h1 style="font-size: 100px;">1</h1>
+                                <div class="d-flex flex-column">
+                                    <span class="h2 mb-0">118$</span>
+                                    <span class="h4 text-muted mb-0">đôi</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- Banner Section End -->
+        <div class="container-fluid video-section">
+            <div class="container">
+                @* <div class="row justify-content-center">
+                <div class="col-auto text-center">
+                <h2 class="text-dark">Videos</h2>
+                </div>
+                </div> *@
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-md-4 mb-4">
+                        <div class="video-container">
+                            <!-- Add your video link here -->
+                            <iframe width="100%" height="315" src="https://www.youtube.com/embed/YU6o76tXfxw?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="video-container">
+                            <!-- Add your video link here -->
+                            <iframe width="100%" height="315" src="https://www.youtube.com/embed/Qk7_Q4_UoFs?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="video-container">
+                            <!-- Add your video link here -->
+                            <iframe width="100%" height="315" src="https://www.youtube.com/embed/UJGJjrmwC60?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Video Section End -->
+
+        <style>
+            .video-section {
+                padding-top: 50px;
+                padding-bottom: 50px;
+            }
+
+            .video-container {
+                position: relative;
+                padding-top: 56.25%; /* 16:9 Aspect Ratio */
+                height: 0;
+            }
+
+                .video-container iframe {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                }
+        </style>
+        
+</div>
+
+@* khi bấm view sp ko load lại trang *@
+<script>
+    $(document).ready(function () {
+        function getPage(page) {
+            $.ajax({
+                url: '@Url.Action("Index", "Home")',
+                type: 'GET',
+                data: { page: page },
+                success: function (data) {
+                    $('#product-container').html(data);
+                    $('html, body').animate({ scrollTop: 0 }, 'slow'); // Cuộn lên đầu trang sau khi cập nhật dữ liệu
+                },
+                error: function () {
+                    alert('Đã xảy ra lỗi khi tải dữ liệu sản phẩm!');
+                }
+            });
+        }
+
+        $('.pagination li a').click(function (e) {
+            e.preventDefault(); // Ngăn chặn hành động mặc định của thẻ a
+            var page = $(this).attr('href').split('=')[1]; // Lấy số trang từ href
+            getPage(page);
+        });
+
+    });
+
+    // JS để cập nhật vị trí banner khi trang được cuộn (nếu cần)
+    window.addEventListener('scroll', function () {
+        var leftBanner = document.getElementById('left-banner');
+        var rightBanner = document.getElementById('right-banner');
+        var scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+
+
+        banners.forEach(function (banner) {
+            banner.style.top = (window.scrollY + window.innerHeight / 2) + 'px';
+        });
+    });
+
+</script>
+
+
+
+

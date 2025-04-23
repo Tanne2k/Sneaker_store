@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Lab03.Models.Product>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Employee/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800 text-center">Danh sách sản phẩm</h1>
+    <div class="d-flex justify-content-end mb-3 mr-1">
+        <a asp-action="Add" asp-controller="Product" class="btn btn-primary">Tạo mới</a>
+    </div>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Tên sản phẩm</th>
+                            <th>Giá</th>
+                            @* <th>Mô tả</th>
+                            <th>Mô tả dài</th> *@
+                            <th>Loại sản phẩm</th>
+                            <th>Màu sắc</th>
+                            <th>Kích cỡ</th>
+                            <th>Ảnh</th>
+                            @* <th>Ảnh phụ</th> *@
+                            <th>Lựa chọn</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var product in Model)
+                        {
+                            <tr>
+                                <td>@product.Name</td>
+                                @* <td>@product.Price</td> *@
+                                <td>@product.Price.ToString("#,##0") Vnđ</td>
+                               @*  <td>@product.Description</td>
+                                
+                                <td>@Html.Raw(product.MoTaDai)</td> *@
+                                <td>@product.Category?.Name</td>
+                                <td>@product.Colors?.Name</td>
+                                <td>@product.Sizes?.Name</td>
+                                @* <td><img src="@product.ImageUrl" alt="" /></td> *@
+                                <td><img src="@product.ImageUrl" alt="@product.Name" class="product-image" /></td>
+                               @*  <td>
+                                    @if (product.SideImage1 != null)
+                                    {
+                                        <img src="@product.SideImage1" alt="@product.Name" class="product-image" />
+                                    }
+                                    @if (product.SideImage2 != null)
+                                    {
+                                        <img src="@product.SideImage2" alt="@product.Name" class="product-image" />
+                                    }
+                                    @if (product.SideImage3 != null)
+                                    {
+                                        <img src="@product.SideImage3" alt="@product.Name" class="product-image" />
+                                    }
+                                </td> *@
+                                <td>
+                                    @* <a asp-controller="Product" asp-action="Display" asp-route-id="@product.Id">Chi tiết</a> |
+                                <a asp-controller="Product" asp-action="Update" asp-route-id="@product.Id">Sửa</a> |
+                                <a asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id">Xóa</a> *@
+                                    <div>
+                                        <a asp-area="Employee" asp-controller="Product" asp-action="Display" asp-route-id="@product.Id"><i class="fa fa-info"></i></a> |
+                                        <a asp-area="Employee" asp-controller="Product" asp-action="Update" asp-route-id="@product.Id"><i class="fa fa-pen text-warning"></i></a>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<style>
+    .product-image {
+        width: 100px; /* hoặc chiều rộng bạn muốn */
+        height: 100px; /* hoặc chiều cao bạn muốn */
+        object-fit: cover; /* đảm bảo hình ảnh được cắt và giữ tỉ lệ */
+    }
+</style>

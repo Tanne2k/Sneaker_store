@@ -1,0 +1,52 @@
+﻿@model Lab03.Models.Discount
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div >
+
+
+<h3>Ban có chắc muốn xóa mã giảm giá này?</h3>
+<div>
+    <h4>Mã giảm giá</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @* @Html.DisplayNameFor(model => model.Code) *@
+            Mã giảm giá 
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Code)
+        </dd>
+        <dt class = "col-sm-2">
+            @* @Html.DisplayNameFor(model => model.Percentage) *@
+            Phần trăm giảm
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Percentage)
+        </dd>
+        <dt class = "col-sm-2">
+            @* @Html.DisplayNameFor(model => model.Expdate) *@
+            Hạn sử dụng 
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Expdate)
+        </dd>
+        <dt class = "col-sm-2">
+            @* @Html.DisplayNameFor(model => model.Remain) *@
+            Số lượng
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Remain)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="IdDiscount" />
+        @* <input type="submit" value="Delete" class="btn btn-danger" /> | *@
+            <input type="submit" value="Xóa" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-primary"> Quay về</a>
+    </form>
+</div>
+</div>

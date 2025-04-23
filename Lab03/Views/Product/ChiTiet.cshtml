@@ -1,0 +1,637 @@
+﻿@model Lab03.ViewModels.ChiTietSanPhamVM
+
+@* @model Lab03.ViewModels.SanPhamVM *@
+
+@{
+    ViewData["Title"] = "Chi tiết sản phẩm";
+}
+
+<!-- Single Page Header start -->
+<div style="margin-top: 150px">
+    <h1 class="text-center text-dark display-6">Chi Tiết Sản Phẩm</h1>
+    <ol class="breadcrumb justify-content-center mb-0">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Product")">Danh mục sản phẩm</a></li>
+        <li class="breadcrumb-item active text-dark">@Model.TenSP</li>
+    </ol>
+</div>
+<!-- Single Page Header End -->
+@* Thêm các banner động vào trang *@
+@* <div id="left-banner" class="fixed-banner">
+    <a asp-area="" asp-controller="Product" asp-action="Index"><img src="https://storage.pixteller.com/designs/designs-images/2020-12-21/05/sneakers-sport-gym-sale-banner-1-5fe0c473ed563.png" class="img-fluid w-100 rounded banner-img" alt="Left Banner"></a>
+</div>
+<div id="right-banner" class="fixed-banner">
+    <a asp-area="" asp-controller="Product" asp-action="Index"><img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/insta-story-blue-sport-shoe-for-sale-design-template-3ee8dd448b63b9e7a91dd7febd685cc2_screen.jpg?ts=1658317522" class="img-fluid w-100 rounded banner-img" alt="Right Banner"></a>
+</div>
+ *@
+<style>
+    .fixed-banner {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 250px; /* Điều chỉnh chiều rộng của banner */
+        z-index: 1000;
+    }
+
+    #left-banner {
+        left: 20px; /* Điều chỉnh khoảng cách từ banner đến lề trái */
+    }
+
+    #right-banner {
+        right: 20px; /* Điều chỉnh khoảng cách từ banner đến lề phải */
+    }
+
+        #left-banner img, #right-banner img {
+            width: 100%;
+            height: 600px; /* Điều chỉnh chiều cao của banner */
+            object-fit: cover; /* Đảm bảo hình ảnh được cắt phù hợp */
+            transition: transform 0.3s ease-in-out; /* Hiệu ứng chuyển đổi mượt mà */
+        }
+
+    .banner-img:hover {
+        transform: scale(1.2); /* Phóng to 1.2 lần khi lia chuột */
+    }
+</style>
+
+<!-- Single Product Start -->
+@* <div class="container-fluid py-5 mt-5"> *@
+<div class="container py-5">
+    <div class="row g-4 mb-5">
+        <div class="col-lg-8 col-xl-9">
+            <div class="row g-4">
+                <div class="col-lg-6">
+
+                    <div class="border rounded">
+
+                        @* <a asp-action="ChiTiet" asp-route-id="@Model.MaSP" style="display: block;">
+                        <img src="@Model.Hinh" class="img-fluid rounded" style="width: 100%; height: 100%; object-fit: cover;" alt="@Model.TenSP">
+                        </a> *@
+
+                        <a href="javascript:void(0)" onclick="showImageModal('@Model.Hinh')" style="display: block;">
+                            <img src="@Model.Hinh" id="mainImage" class="img-fluid rounded" style="width: 100%; height: 100%; object-fit: cover;" alt="@Model.TenSP">
+                        </a>
+
+                    </div>
+
+                    <div>
+
+                        @* <h4>Hình Phụ:</h4> *@
+                        @if (Model.SideImage1 != null)
+                        {
+                            <a href="javascript:void(0)" onclick="showImageModal('@Model.SideImage1')">
+                                <img src="@Model.SideImage1" class="img-fluid rounded" style="width: 100px; height: 100px; object-fit: cover;">
+                            </a>
+                        }
+                        @if (Model.SideImage2 != null)
+                        {
+                            <a href="javascript:void(0)" onclick="showImageModal('@Model.SideImage2')">
+                                <img src="@Model.SideImage2" class="img-fluid rounded" style="width: 100px; height: 100px; object-fit: cover;">
+                            </a>
+                        }
+                        @if (Model.SideImage3 != null)
+                        {
+                            <a href="javascript:void(0)" onclick="showImageModal('@Model.SideImage3')">
+                                <img src="@Model.SideImage3" class="img-fluid rounded" style="width: 100px; height: 100px; object-fit: cover;">
+                            </a>
+                        }
+
+                    </div>
+
+                </div>
+                <div class="col-lg-6">
+                    <div class="card-body text-center">
+                        <div class="row align-items-center">
+                            <h1 class="fw-bold mb-3">@Model.TenSP</h1>
+                            <h3 class=" mb-3">🥾 @Model.MoTa 👞</h3>
+
+                            <div class="mb-3">
+                                <div>
+                                    <h4>Loại: @Model.TenLoai</h4>
+                                </div>
+
+                                <div></div>
+
+                                @* <div class="mb-2 text-center">
+                                <strong>Màu:</strong>
+                                <span>@Model.Mau</span>
+                                </div>
+
+                                <div></div>
+
+                                <div class="text-center">
+                                <strong>Kích cỡ:</strong>
+                                <span>@Model.Kichco</span>
+                                </div> *@
+
+                                <div class="mb-2 text-center">
+                                    <strong>Màu:</strong>
+                                    @foreach (var color in Model.Colors)
+                                    {
+                                        <span>@color.Name</span>
+                                    }
+                                </div>
+
+                                <div></div>
+
+                                <div class="text-center">
+                                    <strong>Kích cỡ:</strong>
+                                    @foreach (var size in Model.Sizes)
+                                    {
+                                        <span>@size.Name</span>
+                                    }
+                                </div>
+
+                                <style>
+                                    .form-group {
+                                        text-align: center;
+                                    }
+
+                                    select.form-control {
+                                        text-align-last: center; /* This centers the text inside the dropdown */
+                                    }
+
+                                </style>
+
+                            </div>
+
+                            <h4>
+                                Giá gốc:  <i style="font-weight: bold; color: green;">@string.Format("{0:N0}", (float)Model.Gia) VNĐ</i>
+                            </h4>
+
+                            @* <h4>
+                            Giá gốc: <strike style="color:red;">
+                            @string.Format("{0:N0} VNĐ",
+                            (float)Model.Gia * 1.5) VNĐ
+                            </strike>
+                            </h4> *@
+                            @* <h4>
+                            Giá giảm sốc: <i style="font-weight: bold; color: green;">@string.Format("{0:N0}", (float)Model.Gia) VNĐ</i>
+                            </h4> *@
+
+                        </div>
+
+                        @* <h5 class="fw-bold mb-3">@Model.Gia VNĐ</h5> *@
+                        <div class="d-flex mb-4" id="star-container">
+                            <i class="fa fa-star" data-value="1"></i>
+                            <i class="fa fa-star" data-value="2"></i>
+                            <i class="fa fa-star" data-value="3"></i>
+                            <i class="fa fa-star" data-value="4"></i>
+                            <i class="fa fa-star" data-value="5"></i>
+                        </div>
+
+                        <style>
+                            .fa-star {
+                                cursor: pointer;
+                                font-size: 2rem;
+                                color: black;
+                            }
+
+                                .fa-star.checked {
+                                    color: gold;
+                                }
+                        </style>
+
+                        @* <div class="mb-2 d-flex justify-content-center">
+                        <form class="addToCartForm" data-product-id="@Model.MaSP" method="post" action="@Url.Action("AddToCart", "ShoppingCart")" class="me-2">
+                        <input type="hidden" name="productId" value="@Model.MaSP" />
+                        <input type="hidden" name="quantity" value="1" />
+                        <button type="submit" class="btn btn-danger add-to-cart-btn" style="width: 133px;">
+                        <i class="bi-cart-fill me-1"></i>
+                        </button>
+                        </form>
+                        <a asp-controller="Product" asp-action="Index" style="text-decoration: none;">
+                        <button type="button" class="btn btn-warning" style="width: 133px;">
+                        <i class="bi bi-arrow-return-left"></i>
+                        </button>
+                        </a>
+                        </div> *@
+
+                        <div class="mb-2 d-flex justify-content-center">
+                            <form class="addToCartForm me-2" data-product-id="@Model.MaSP" method="post" action="@Url.Action("AddToCart", "ShoppingCart")">
+                                <input type="hidden" name="productId" value="@Model.MaSP" />
+                                <input type="hidden" name="quantity" value="1" />
+                                <button type="submit" class="btn btn-danger add-to-cart-btn" style="width: 133px;">
+                                    <i class="bi-cart-fill me-1"></i>
+                                </button>
+                            </form>
+                            <a asp-controller="Product" asp-action="Index" style="text-decoration: none;">
+                                <button type="button" class="btn btn-warning ms-2" style="width: 133px;">
+                                    <i class="bi bi-arrow-return-left"></i>
+                                </button>
+                            </a>
+                        </div>
+
+                        <style>
+                            .d-flex {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                            }
+
+                            .me-2 {
+                                margin-right: 0.5rem;
+                            }
+
+                            .btn {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                            }
+
+                            .add-to-cart-btn, .btn-warning {
+                                width: 133px;
+                            }
+
+                        </style>
+
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <nav>
+                        <div class="nav nav-tabs mb-3">
+                            <button class="nav-link active border-white border-bottom-0" type="button" role="tab"
+                                    id="nav-about-tab" data-bs-toggle="tab" data-bs-target="#nav-about"
+                                    aria-controls="nav-about" aria-selected="true">
+                                Thông tin sản phẩm
+                            </button>
+                            @* <button class="nav-link border-white border-bottom-0" type="button" role="tab"
+                                    id="nav-mission-tab" data-bs-toggle="tab" data-bs-target="#nav-mission"
+                                    aria-controls="nav-mission" aria-selected="false">
+                                Đánh giá
+                            </button> *@
+                        </div>
+                    </nav>
+                    <div class="tab-content mb-5">
+                        <div class="tab-pane active" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+                            @* @Model.MoTaDai *@
+                            @Html.Raw(Model.MoTaDai)
+                        </div>
+                        @* <div class="tab-pane" id="nav-mission" role="tabpanel" aria-labelledby="nav-mission-tab">
+                            <div class="d-flex">
+                                <img src="~/template/img/avatar.jpg" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
+                                <div class="">
+                                    <p class="mb-2" style="font-size: 14px;">April 12, 2024</p>
+                                    <div class="d-flex justify-content-between">
+                                        <h5>Jason Smith</h5>
+                                        <div class="d-flex mb-3">
+                                            <i class="fa fa-star text-secondary"></i>
+                                            <i class="fa fa-star text-secondary"></i>
+                                            <i class="fa fa-star text-secondary"></i>
+                                            <i class="fa fa-star text-secondary"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <p>
+                                        The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic
+                                        words etc. Susp endisse ultricies nisi vel quam suscipit
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <img src="~/template/img/avatar.jpg" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
+                                <div class="">
+                                    <p class="mb-2" style="font-size: 14px;">April 12, 2024</p>
+                                    <div class="d-flex justify-content-between">
+                                        <h5>Sam Peters</h5>
+                                        <div class="d-flex mb-3">
+                                            <i class="fa fa-star text-secondary"></i>
+                                            <i class="fa fa-star text-secondary"></i>
+                                            <i class="fa fa-star text-secondary"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <p class="text-dark">
+                                        The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic
+                                        words etc. Susp endisse ultricies nisi vel quam suscipit
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="nav-vision" role="tabpanel">
+                            <p class="text-dark">
+                                Tempor erat elitr rebum at clita. Diam dolor diam ipsum et tempor sit. Aliqu diam
+                                amet diam et eos labore. 3
+                            </p>
+                            <p class="mb-0">
+                                Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore.
+                                Clita erat ipsum et lorem et sit
+                            </p>
+                        </div> *@
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-4 col-xl-3">
+            <div class="row g-4 fruite">
+                <div class="col-lg-12">
+
+                    @await Html.PartialAsync("_TimKiemPanel")
+
+                    @await Component.InvokeAsync("MenuLoai")
+
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="position-relative">
+                        <a asp-controller="Product" asp-action="Index"><img src="~/template/img/banner8.png" class="img-fluid w-100 rounded" alt=""></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* sp nổi bật *@
+    <!-- Trong view của ChiTiet -->
+    @* <h1 class="fw-bold mb-0">Sản phẩm tương tự</h1>
+    <div class="vesitable">
+        <div class="owl-carousel vegetable-carousel justify-content-center">
+            @foreach (var item in Model.SimilarProducts)
+            {
+                <div class=" rounded position-relative fruite-item w-100 vesitable-item d-flex align-items-stretch mb-4">
+                    <a asp-action="ChiTiet" asp-route-id="@item.MaSP" class="vesitable-img d-block">
+                        <img src="@item.Hinh" class="img-fluid w-100 rounded-top" alt="@item.TenSP">
+                    </a>
+                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">@item.TenLoai</div>
+                    <div class="p-4 pb-0 rounded-bottom text-center">
+                        <h4>@item.TenSP</h4>
+                        <p class="text-center">@item.MoTa</p>
+                        <div class="mb-2 text-center">
+                            <strong>Màu:</strong>
+                            <span>@item.Mau</span>
+                        </div>
+                        <div class="text-center">
+                            <strong>Kích cỡ:</strong>
+                            <span>@item.Kichco</span>
+                        </div>
+                        <div class="btn-action d-flex justify-content-center">
+                            <p class="text-dark fs-5 fw-bold">@string.Format("{0:N0}", (float)item.Gia) VNĐ</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div> *@
+
+    <!-- Similar Products Start -->
+    <h1 class="fw-bold mb-0">Sản phẩm tương tự</h1>
+    <div class="vesitable">
+        <div class="owl-carousel vegetable-carousel justify-content-center">
+            @if (Model.SimilarProducts != null)
+            {
+                foreach (var item in Model.SimilarProducts)
+                {
+                    <div class="rounded position-relative fruite-item w-100 vesitable-item d-flex align-items-stretch mb-4">
+                        <a asp-action="ChiTiet" asp-route-id="@item.MaSP" class="vesitable-img d-block">
+                            <img src="@item.Hinh" class="img-fluid w-100 rounded-top" alt="@item.TenSP">
+                        </a>
+                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">@item.TenLoai</div>
+                        <div class="p-4 pb-0 rounded-bottom text-center">
+                            <h4>@item.TenSP</h4>
+                            <p class="text-center">@item.MoTa</p>
+                            <div class="mb-2 text-center">
+                                <strong>Màu:</strong>
+                                <span>@item.Mau</span>
+                            </div>
+                            <div class="text-center">
+                                <strong>Kích cỡ:</strong>
+                                <span>@item.Kichco</span>
+                            </div>
+                            <div class="btn-action d-flex justify-content-center">
+                                <p class="text-dark fs-5 fw-bold">@string.Format("{0:N0}", (float)item.Gia) VNĐ</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>Không có sản phẩm tương tự.</p>
+            }
+        </div>
+    </div>
+    <!-- Similar Products End -->
+
+</div>
+
+@* </div> *@
+<!-- Single Product End -->
+<!-- Modal for Viewing Images start-->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img id="modalImage" src="" class="img-fluid w-100" alt="Product Image">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal for Viewing Images end-->
+
+
+<!-- Include jQuery and ElevateZoom plugin -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/3.0.8/jquery.elevateZoom.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+<script>
+    // Function to show image in modal
+    function showImageModal(imageUrl) {
+        var modalImage = document.getElementById('modalImage');
+        modalImage.src = imageUrl;
+        $('#imageModal').modal('show');
+    }
+
+    // Function to check availability
+    function checkAvailability(type) {
+        var selectElement = document.getElementById(type + 'Select');
+        var selectedValue = selectElement.value;
+        var messageElement = document.getElementById(type + 'Message');
+
+        // Check availability logic goes here
+        var isAvailable = true; // Replace with actual availability check
+
+        if (isAvailable) {
+            messageElement.innerHTML = '<span style="color: green;">Có sẵn</span>';
+        } else {
+            messageElement.innerHTML = '<span style="color: red;">Không có sẵn</span>';
+        }
+    }
+
+    // Initialize ElevateZoom for image zoom on hover
+    $(document).ready(function () {
+        $('#mainImage').elevateZoom({
+            zoomType: "lens",
+            lensShape: "round",
+            lensSize: 200
+        });
+    });
+
+    // Initialize OwlCarousel
+    $(document).ready(function () {
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            margin: 20,  // Ensure margin between items is equal
+            nav: false,  // Disable navigation buttons
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 4
+                }
+            }
+        });
+    });
+
+    // JS để cập nhật vị trí banner khi trang được cuộn (nếu cần)
+    window.addEventListener('scroll', function () {
+        var leftBanner = document.getElementById('left-banner');
+        var rightBanner = document.getElementById('right-banner');
+        var scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+
+
+        banners.forEach(function (banner) {
+            banner.style.top = (window.scrollY + window.innerHeight / 2) + 'px';
+        });
+    });
+
+    // vote sao cho sp
+    const stars = document.querySelectorAll('#star-container .fa-star');
+    let selectedRating = 0;
+
+    stars.forEach(star => {
+        star.addEventListener('mouseover', function () {
+            resetStars();
+            const currentStarValue = this.getAttribute('data-value');
+            highlightStars(currentStarValue);
+        });
+
+        star.addEventListener('mouseout', function () {
+            resetStars();
+            if (selectedRating !== 0) {
+                highlightStars(selectedRating);
+            }
+        });
+
+        star.addEventListener('click', function () {
+            selectedRating = this.getAttribute('data-value');
+            Swal.fire({
+                position: "center",
+                MIDIConnectionEvent: "success",
+                title: ('Cảm ơn bạn đã vote sao cho sản phẩm 🥰'),
+                showConfirmButton: false,
+                TimeRanges: 1500,
+            })
+            // alert(`Cảm ơn bạn đã vote ${selectedRating} sao cho sản phẩm 🥰`);
+        });
+    });
+
+    function highlightStars(value) {
+        for (let i = 0; i < value; i++) {
+            stars[i].classList.add('checked');
+        }
+    }
+
+    function resetStars() {
+        stars.forEach(star => {
+            star.classList.remove('checked');
+        });
+    }
+
+</script>
+
+<style>
+    .vesitable-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
+
+    .vesitable-img {
+        overflow: hidden; /* Hide overflow to maintain image aspect ratio */
+        height: 200px; /* Fixed height for images */
+    }
+
+        .vesitable-img img {
+            height: 100%; /* Ensure images take the full height of the container */
+            width: 100%; /* Ensure images take the full width of the container */
+            object-fit: cover; /* Maintain aspect ratio and cover the container */
+        }
+
+    .p-4.pb-0.rounded-bottom {
+        flex: 1; /* Make sure the product description fills the remaining space */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .btn-action {
+        margin-top: auto; /* Push the button to the bottom */
+    }
+
+    .owl-carousel .owl-item {
+        display: flex;
+        align-items: stretch;
+    }
+
+        .owl-carousel .owl-item .vesitable-item {
+            margin: 10px; /* Adjust margin to ensure equal spacing */
+        }
+</style>
+
+@* vote sao cho sp *@
+@* <script>
+    const stars = document.querySelectorAll('#star-container .fa-star');
+    let selectedRating = 0;
+
+    stars.forEach(star => {
+        star.addEventListener('mouseover', function () {
+            resetStars();
+            const currentStarValue = this.getAttribute('data-value');
+            highlightStars(currentStarValue);
+        });
+
+        star.addEventListener('mouseout', function () {
+            resetStars();
+            if (selectedRating !== 0) {
+                highlightStars(selectedRating);
+            }
+        });
+
+        star.addEventListener('click', function () {
+            selectedRating = this.getAttribute('data-value');
+            Swal.fire({
+                position: "center",
+                MIDIConnectionEvent: "success",
+                title: ('Cảm ơn bạn đã vote sao cho sản phẩm 🥰'),
+                showConfirmButton: false,
+                TimeRanges: 1500,
+            })
+            // alert(`Cảm ơn bạn đã vote ${selectedRating} sao cho sản phẩm 🥰`);
+        });
+    });
+
+    function highlightStars(value) {
+        for (let i = 0; i < value; i++) {
+            stars[i].classList.add('checked');
+        }
+    }
+
+    function resetStars() {
+        stars.forEach(star => {
+            star.classList.remove('checked');
+        });
+    }
+</script> *@
+

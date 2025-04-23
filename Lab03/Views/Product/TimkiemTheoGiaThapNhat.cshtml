@@ -1,0 +1,229 @@
+﻿@model X.PagedList.IPagedList<Lab03.ViewModels.SanPhamVM>
+@using X.PagedList.Mvc.Core
+@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = "TimkiemTheoGiaThapNhat";
+    Layout = "_TemplateSanPham";
+}
+
+<h6>Trang này có @Model.Count sản phẩm</h6>
+
+@* @foreach (var item in Model)
+{
+    <div class="col-md-6 col-lg-6 col-xl-4 d-flex align-items-stretch mb-4">
+        <div class="rounded position-relative fruite-item w-100">
+
+            <div class="fruite-img">
+                <img src="@item.Hinh" class="img-fluid w-100 rounded-top" alt="@item.TenSP" style="height: 200px; object-fit: cover;">
+            </div>
+            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">@item.TenLoai</div>
+            <div class="p-4 border border-secondary border-top-0 rounded-bottom d-flex flex-column align-items-center">
+                <h4 class="text-center">@item.TenSP</h4>
+                <p class="text-center">@item.MoTa</p>
+                <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
+                    <div class="mb-2 text-center">
+                        <strong>Màu:</strong>
+                        <span>@item.Mau</span>
+                    </div>
+                    <div class="text-center">
+                        <strong>Kích cỡ:</strong>
+                        <span>@item.Kichco</span>
+                    </div>
+                </div>
+                <p class="text-dark fs-5 fw-bold mb-0 text-center">Giá: @item.Gia.ToString("#,##0") VNĐ</p>
+                <div class="mt-3 d-flex justify-content-center">
+                    <a asp-action="ChiTiet" asp-controller="Product" asp-route-id="@item.MaSP" method="post" class="btn btn-warning">
+                        <i class="bi bi-eye-fill me-1"></i>Xem chi tiết
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+} *@
+
+@foreach (var item in Model)
+{
+    <div class="col-md-6 col-lg-6 col-xl-4 d-flex align-items-stretch mb-4">
+        <div class="rounded position-relative fruite-item w-100">
+
+            <a asp-action="ChiTiet" asp-controller="Product" asp-route-id="@item.MaSP" method="post">
+                <img src="@item.Hinh" class="img-fluid w-100 rounded-top" alt="@item.TenSP" style="height: 200px; object-fit: cover;">
+            </a>
+
+            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">@item.TenLoai</div>
+
+            <form class="addToWishListForm text-white position-absolute" style="top: 10px; right: 10px;" data-product-id="@item.MaSP" method="post" action="@Url.Action("AddToWishList","WishList")" class="me-2">
+                <input type="hidden" name="productId" value="@item.MaSP" />
+                <button type="submit" class="btn btn-danger add-to-wishlist-btn" style="width: 80px;">
+                    <i class="bi bi-heart-fill"></i>
+                </button>
+            </form>
+
+            <div class="p-4 border border-secondary border-top-0 rounded-bottom d-flex flex-column align-items-center">
+                <h4 class="text-center">@item.TenSP</h4>
+                <p class="text-center">@item.MoTa</p>
+                <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
+                    <div class="mb-2 text-center">
+                        <strong>Màu:</strong>
+                        <span>@item.Mau</span>
+                    </div>
+                    <div class="text-center">
+                        <strong>Kích cỡ:</strong>
+                        <span>@item.Kichco</span>
+                    </div>
+                </div>
+                <p class="text-dark fs-5 fw-bold mb-0 text-center">Giá: @item.Gia.ToString("#,##0") VNĐ</p>
+
+                <div class="mt-3 d-flex justify-content-center">
+                    <form class="addToCartForm" data-product-id="@item.MaSP" method="post" action="@Url.Action("AddToCart", "ShoppingCart")" class="me-2">
+                        <input type="hidden" name="productId" value="@item.MaSP" />
+                        <input type="hidden" name="quantity" value="1" />
+                        <button type="submit" class="btn btn-danger add-to-cart-btn" style="width: 133px;">
+                            <i class="bi-cart-fill me-1"></i>Mua
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @if (Model.Count > 0)
+    {
+        // Lưu trữ query hiện tại (nếu có)
+        var query = ViewBag.Query;
+        // Lưu trữ controller và action hiện tại
+        var currentController = ViewContext.RouteData.Values["controller"].ToString();
+        var currentAction = ViewContext.RouteData.Values["action"].ToString();
+        @Html.PagedListPager(Model, page =>
+                {
+                    // Tạo link dựa trên controller, action và query hiện tại
+                    var url = Url.Action(currentAction, currentController, new { page, query });
+                    return url;
+                })
+    }
+</div>
+
+@* <style>
+    /* Bổ sung CSS cho phân trang */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center; /* Căn chỉnh các thành phần theo chiều dọc */
+        list-style: none;
+        padding: 8px 0;
+    }
+
+        .pagination li {
+            margin: 0 5px; /* Khoảng cách giữa các ô trang */
+        }
+
+            .pagination li a {
+                display: inline-block;
+                padding: 8px 12px;
+                background-color: white; /* Màu nền mặc định */
+                color: black; /* Màu chữ mặc định */
+                text-decoration: none;
+                border-radius: 5px;
+                transition: background-color 0.3s; /* Hiệu ứng màu khi di chuột */
+                box-shadow: none; /* Xóa bóng đổ mặc định */
+                line-height: 1; /* Thiết lập line-height cố định */
+            }
+
+                .pagination li a:hover {
+                    background-color: yellow; /* Màu vàng khi di chuột vào */
+                }
+
+            .pagination li.active a {
+                background-color: #45a049; /* Màu xanh lá đậm cho ô trang đã chọn */
+                box-shadow: none; /* Xóa bóng đổ của ô trang đã chọn */
+            }
+
+            /* Thiết lập kích thước của con số trong ô trang */
+            .pagination li a span {
+                display: inline-block;
+                width: 100%; /* Đảm bảo rằng con số chiếm toàn bộ chiều rộng của ô trang */
+                text-align: center; /* Căn giữa nội dung trong ô trang */
+            }
+</style> *@
+
+<style>
+    .bg-lightblue {
+        background-color: #e0f7fa; /* Màu xanh biển nhạt */
+    }
+
+    .fruite-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
+
+        .card-body .row {
+            flex-grow: 1;
+        }
+
+        .card-body img {
+            max-height: 200px; /* Đặt chiều cao tối đa cho hình ảnh nếu cần */
+            object-fit: cover;
+        }
+
+        .card-body h4 {
+            margin-top: 10px;
+        }
+
+        .card-body p {
+            margin: 15px 0;
+        }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center; /* Căn chỉnh các thành phần theo chiều dọc */
+        list-style: none;
+        padding: 8px 0;
+    }
+
+        .pagination li {
+            margin: 0 5px; /* Khoảng cách giữa các ô trang */
+        }
+
+            .pagination li a {
+                display: inline-block;
+                padding: 8px 12px;
+                background-color: white; /* Màu nền mặc định */
+                color: black; /* Màu chữ mặc định */
+                text-decoration: none;
+                border-radius: 5px;
+                transition: background-color 0.3s; /* Hiệu ứng màu khi di chuột */
+                box-shadow: none; /* Xóa bóng đổ mặc định */
+                line-height: 1; /* Thiết lập line-height cố định */
+            }
+
+                .pagination li a:hover {
+                    background-color: yellow; /* Màu vàng khi di chuột vào */
+                }
+
+            .pagination li.active a {
+                background-color: #45a049; /* Màu xanh lá đậm cho ô trang đã chọn */
+                box-shadow: none; /* Xóa bóng đổ của ô trang đã chọn */
+            }
+
+            /* Thiết lập kích thước của con số trong ô trang */
+            .pagination li a span {
+                display: inline-block;
+                width: 100%; /* Đảm bảo rằng con số chiếm toàn bộ chiều rộng của ô trang */
+                text-align: center; /* Căn giữa nội dung trong ô trang */
+            }
+
+</style>

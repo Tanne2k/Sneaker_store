@@ -1,0 +1,405 @@
+﻿@* lúc đầu ko có *@
+@model X.PagedList.IPagedList<Lab03.ViewModels.SanPhamVM>
+@using X.PagedList.Mvc.Core
+
+@* có *@
+@{
+    Layout = "_Layout";
+}
+
+@* Thêm các banner động vào trang *@
+@* <div id="left-banner" class="fixed-banner">
+    <a asp-controller="Product" asp-action="Index"><img src="https://storage.pixteller.com/designs/designs-images/2020-12-21/05/sneakers-sport-gym-sale-banner-1-5fe0c473ed563.png" class="img-fluid w-100 rounded banner-img" alt="Left Banner"></a>
+</div>
+<div id="right-banner" class="fixed-banner">
+    <a asp-controller="Product" asp-action="Index"><img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/insta-story-blue-sport-shoe-for-sale-design-template-3ee8dd448b63b9e7a91dd7febd685cc2_screen.jpg?ts=1658317522" class="img-fluid w-100 rounded banner-img" alt="Right Banner"></a>
+</div> *@
+
+<style>
+    .fixed-banner {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 250px; /* Điều chỉnh chiều rộng của banner */
+        z-index: 1000;
+    }
+
+    #left-banner {
+        left: 20px; /* Điều chỉnh khoảng cách từ banner đến lề trái */
+    }
+
+    #right-banner {
+        right: 20px; /* Điều chỉnh khoảng cách từ banner đến lề phải */
+    }
+
+        #left-banner img, #right-banner img {
+            width: 100%;
+            height: 600px; /* Điều chỉnh chiều cao của banner */
+            object-fit: cover; /* Đảm bảo hình ảnh được cắt phù hợp */
+            transition: transform 0.3s ease-in-out; /* Hiệu ứng chuyển đổi mượt mà */
+        }
+
+    .banner-img:hover {
+        transform: scale(1.2); /* Phóng to 1.2 lần khi lia chuột */
+    }
+</style>
+
+<div style="margin-top: 150px"></div>
+
+<!-- Single Page Header start -->
+@RenderSection("BreadCum", required: false)
+<!-- Single Page Header End -->
+<!-- Fruits Shop Start-->
+<div class="container py-5" @* style="margin-top: 120px" *@>
+    <div class="row g-4">
+        <div class="col-lg-12">
+            <div class="row g-4">
+                <div class="col-xl-3">
+
+                    <div class="input-group w-100 mx-auto d-flex">
+
+                        @await Html.PartialAsync("_TimKiemPanel")
+
+                    </div>
+
+                </div>
+
+                <div class="col-6"></div>
+
+
+                <div class="col-xl-3">
+                    <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
+                        <label for="fruits">Sắp xếp:</label>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span id="selectedOptionText">Chọn</span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item" href="@Url.Action("TimkiemTatCa", "Product")" onclick="setSelectedOption('Tất cả')">Tất cả</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("TimkiemTheoTenAZ", "Product")" onclick="setSelectedOption('A-Z')">A-Z</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("TimkiemTheoTenZA", "Product")" onclick="setSelectedOption('Z-A')">Z-A</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("TimkiemTheoGiaThapNhat", "Product")" onclick="setSelectedOption('Giá tiền nhỏ nhất')">Giá tiền nhỏ nhất</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("TimkiemTheoGiaCaoNhat", "Product")" onclick="setSelectedOption('Giá tiền lớn nhất')">Giá tiền lớn nhất</a></li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row g-4">
+                    <div class="col-lg-3">
+                        <div class="row g-4">
+
+                            @* menu động *@
+                            @await Component.InvokeAsync("MenuLoai")
+
+                            @* <div class="mb-3">
+                            <h4>Kích cỡ</h4>
+                            @for (int i = 37; i <= 46; i++)
+                            {
+                            <div class="form-check">
+                            <input class="form-check-input" type="radio" name="size" value="@i" id="size_@i">
+                            <label class="form-check-label" for="size_@i">@i</label>
+                            </div>
+                            }
+                            </div>
+
+                            <div class="mb-3">
+                            <h4>Màu</h4>
+                            @{
+                            string[] colors = new string[] { "Xanh", "Đỏ", "Tím", "Vàng", "Cam", "Lục", "Đen", "Trắng", "Hồng" };
+                            for (int i = 0; i < colors.Length; i++)
+                            {
+                            <div class="form-check">
+                            <input class="form-check-input" type="radio" name="color" value="@colors[i]" id="color_@i">
+                            <label class="form-check-label" for="color_@i">@colors[i]</label>
+                            </div>
+                            }
+                            }
+                            </div> *@
+
+                            @* <form id="filterForm" asp-area="" asp-controller="Product" asp-action="AdvancedFilter" method="get">
+                                <div class="border border-warning rounded p-3 mb-3">
+                                    <div class="mb-3">
+                                        <h4>Giá</h4>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="price" value="500000" id="price_500k">
+                                            <label class="form-check-label" for="price_500k">Dưới 500K</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="price" value="1000000" id="price_1m">
+                                            <label class="form-check-label" for="price_1m">500K đến 999K</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="price" value="2000000" id="price_2m">
+                                            <label class="form-check-label" for="price_2m">Từ 1 triệu đến 2 triệu</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="price" value="2000001" id="price_2m1">
+                                            <label class="form-check-label" for="price_2m1">Trên 2 triệu</label>
+                                        </div>
+                                    </div>
+
+                                    @* <div class="mb-3">
+                                        <h4>Kích cỡ</h4>
+                                        @foreach (var item in Model)
+                                        {
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="size" value="@item.Kichco" id="size_@item.Kichco">
+                                                <label class="form-check-label" for="size_@item.Kichco">@item.Kichco</label>
+                                            </div>
+                                        }
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <h4>Màu</h4>
+                                        @foreach (var item in Model)
+                                        {
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="color" value="@item.Mau" id="color_@item.Mau">
+                                                <label class="form-check-label" for="color_@item.Mau">@item.Mau</label>
+                                            </div>
+                                        }
+                                    </div> 
+
+                                    <div class="mb-3">
+                                        <h4>Kích cỡ</h4>
+                                        @for (int i = 37; i <= 46; i++)
+                                        {
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="size" value="@i" id="size_@i">
+                                                <label class="form-check-label" for="size_@i">@i</label>
+                                            </div>
+                                        }
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <h4>Màu</h4>
+                                        @{
+                                            string[] colors = new string[] { "Xanh", "Đỏ", "Tím", "Vàng", "Cam", "Lục", "Đen", "Trắng", "Hồng" };
+                                            for (int i = 0; i < colors.Length; i++)
+                                            {
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="color" value="@colors[i]" id="color_@i">
+                                                    <label class="form-check-label" for="color_@i">@colors[i]</label>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+
+                                <div class="text-center">
+                                    <button class="btn btn-danger" type="button" onclick="applyFilters()">Lọc</button>
+                                </div>
+                            </form> *@
+
+                            <form id="filterForm" asp-area="" asp-controller="Product" asp-action="AdvancedFilter" method="get">
+                                <div class="border border-warning rounded p-3 mb-3">
+                                    <div class="mb-3">
+                                        <h4>Giá</h4>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="price" value="500000" id="price_500k">
+                                            <label class="form-check-label" for="price_500k">Dưới 500K</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="price" value="1000000" id="price_1m">
+                                            <label class="form-check-label" for="price_1m">500K đến 999K</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="price" value="2000000" id="price_2m">
+                                            <label class="form-check-label" for="price_2m">Từ 1 triệu đến 2 triệu</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="price" value="2000001" id="price_2m1">
+                                            <label class="form-check-label" for="price_2m1">Trên 2 triệu</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <h4>Kích cỡ</h4>
+                                        @for (int i = 37; i <= 46; i++)
+                                        {
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="size" value="@i" id="size_@i">
+                                                <label class="form-check-label" for="size_@i">@i</label>
+                                            </div>
+                                        }
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <h4>Màu</h4>
+                                        @{
+                                            string[] colors = new string[] { "Xanh", "Đỏ", "Tím", "Vàng", "Cam", "Lục", "Đen", "Trắng", "Hồng" };
+                                            for (int i = 0; i < colors.Length; i++)
+                                            {
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="color" value="@colors[i]" id="color_@i">
+                                                    <label class="form-check-label" for="color_@i">@colors[i]</label>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+
+                                <div class="text-center">
+                                    <button class="btn btn-danger" type="button" onclick="applyFilters()">Lọc</button>
+                                </div>
+                                @* <div id="alertMessage" class="text-danger justify-content-center mt-3" style="display:none;">
+                                    Vui lòng chọn option bất kỳ 🥰
+                                </div> *@
+                            </form>
+
+
+
+                            <div class="col-lg-12">
+                                <div class="position-relative">
+
+                                    <a asp-controller="Product" asp-action="Index"><img src="~/template/img/banner8.png" class="img-fluid w-100 rounded" alt=""></a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="row g-4 justify-content-center">
+
+                            @RenderBody()
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fruits Shop End-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    function redirect() {
+        var url = document.getElementById("fruits").value;
+        if (url != "volvo") {
+            window.location.href = url;
+        }
+    }
+
+    function redirect() {
+        var selectBox = document.getElementById("fruits");
+        var selectedOption = selectBox.options[selectBox.selectedIndex].value;
+        if (selectedOption !== "") { // Chỉ chuyển hướng nếu option được chọn không rỗng
+            window.location.href = selectedOption;
+        }
+    }
+
+    function redirect() {
+        var select = document.getElementById("fruits");
+        var selectedValue = select.options[select.selectedIndex].value;
+        if (selectedValue) {
+            window.location.href = selectedValue;
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var dropdownItems = document.querySelectorAll(".dropdown-item");
+
+        dropdownItems.forEach(function (item) {
+            item.addEventListener("click", function () {
+                var selectedText = item.textContent;
+                var dropdownButton = document.getElementById("selectedOptionText");
+                dropdownButton.textContent = selectedText;
+            });
+        });
+    });
+
+    // xóa chọn option lần 2
+    document.addEventListener('DOMContentLoaded', function () {
+        let radios = document.querySelectorAll('#filterForm input[type="radio"]');
+
+        radios.forEach(radio => {
+            radio.addEventListener('click', function (e) {
+                if (radio.previousChecked) {
+                    radio.checked = false;
+                }
+                radio.previousChecked = radio.checked;
+            });
+        });
+    });
+
+    function applyFilters() {
+        document.getElementById('filterForm').submit();
+    }
+
+
+    // JS để cập nhật vị trí banner khi trang được cuộn (nếu cần)
+    window.addEventListener('scroll', function () {
+        var leftBanner = document.getElementById('left-banner');
+        var rightBanner = document.getElementById('right-banner');
+        var scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+
+
+        banners.forEach(function (banner) {
+            banner.style.top = (window.scrollY + window.innerHeight / 2) + 'px';
+        });
+    });
+
+    //required lọc
+    function applyFilters() {
+        const form = document.getElementById('filterForm');
+        const priceOptions = form.querySelectorAll('input[name="price"]');
+        const sizeOptions = form.querySelectorAll('input[name="size"]');
+        const colorOptions = form.querySelectorAll('input[name="color"]');
+        const alertMessage = document.getElementById('alertMessage');
+
+        let isOptionSelected = false;
+
+        // Kiểm tra các tùy chọn giá
+        priceOptions.forEach(option => {
+            if (option.checked) {
+                isOptionSelected = true;
+            }
+        });
+
+        // Kiểm tra các tùy chọn kích cỡ
+        sizeOptions.forEach(option => {
+            if (option.checked) {
+                isOptionSelected = true;
+            }
+        });
+
+        // Kiểm tra các tùy chọn màu
+        colorOptions.forEach(option => {
+            if (option.checked) {
+                isOptionSelected = true;
+            }
+        });
+
+        if (isOptionSelected) {
+            form.submit();
+        } else {
+            // alertMessage.style.display = 'block';
+            Swal.fire({
+                title: "Vui lòng chọn option bất kỳ 🥰",
+                width: 600,
+                padding: "3em",
+                color: "#716add",
+                background: "#fff url(/images/trees.png)",
+                // url("/images/nyan-cat.gif") dòng này của backdrop
+                backdrop: `
+                    rgba(0,0,123,0.4)
+
+                    left top
+                    no-repeat`
+                ,
+                customClass: {
+                    background: 'bg-cover'
+                }
+            });
+            return; // Dừng việc thực thi nếu người dùng không nhập gì
+        }
+    }
+   
+</script>
+
+

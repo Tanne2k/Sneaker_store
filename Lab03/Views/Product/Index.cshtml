@@ -1,0 +1,28 @@
+﻿
+@* @model IEnumerable<Lab03.ViewModels.SanPhamVM>  *@
+
+@model X.PagedList.IPagedList<Lab03.ViewModels.SanPhamVM>
+@using X.PagedList.Mvc.Core
+
+@{
+    ViewData["Title"] = "Sản phẩm";
+    Layout = "_TemplateSanPham";
+    int numOfQuantity = 1;
+}
+
+<!-- Single Page Header start -->
+@section BreadCum {
+    <div class="container-fluid contact" @* style="margin-top: 150px" *@ >
+        <h1 class="text-center text-black display-6">Sản phẩm</h1>
+        <ol class="breadcrumb justify-content-center mb-0">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+            <li class="breadcrumb-item active text-black">Sản phẩm</li>
+        </ol>
+    </div>
+}
+<!-- Single Page Header End -->
+
+<!-- Fruits Shop Start-->
+@await Html.PartialAsync("ProductItem", Model)
+<!-- Fruits Shop End-->
+

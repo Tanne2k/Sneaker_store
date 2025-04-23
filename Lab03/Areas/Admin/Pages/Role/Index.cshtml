@@ -1,0 +1,105 @@
+﻿@* @page "/Admin/Role/"
+@using Lab03.Areas.Admin.Pages.Role
+
+@model IndexModel
+
+<div >
+    <div class="container-fluid text-center  p-3 rounded text-black">
+        <h2>Danh sách vai trò</h2>
+    </div>
+    <partial name="_StatusMessage" model="@Model.StatusMessage" />
+    <form method="POST" class="my-1 d-inline">
+        <button class="btn btn-secondary" asp-page="./Add"
+                asp-page-handler="StartNewRole">
+            Thêm mới vai trò
+        </button>
+    </form>
+    <a class="btn btn-secondary" asp-page="./User">Gán vai trò cho người dùng</a>
+
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Tên</th>
+            <th>Tác vụ</th>
+        </tr>
+        @foreach (var role in @Model.roles)
+        {
+            <tr>
+                <td>@role.Id</td>
+                <td>
+                    @role.Name
+                </td>
+
+                <td>
+                    <form method="POST" class="d-inline">
+                        <button name="Input.ID" value="@role.Id" class="btn btn-success btn-sm"
+                                asp-page="./Add" asp-page-handler="StartUpdate">
+                            Cập nhật vai trò
+                        </button>
+                    </form>
+                    <form method="POST" class="d-inline">
+                        <button name="Input.ID" value="@role.Id" class="btn btn-success btn-sm"
+                                asp-page="./Delete">
+                            Xóa vai trò
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+</div> *@
+@page "/Admin/Role/"
+@using Lab03.Areas.Admin.Pages.Role
+
+@model IndexModel
+
+<div>
+    <div class="container-fluid text-center  p-3 rounded text-black">
+        <h2>Danh sách vai trò</h2>
+    </div>
+    <partial name="_StatusMessage" model="@Model.StatusMessage" />
+    <form method="POST" class="my-1 d-inline">
+        <button class="btn btn-secondary" asp-page="./Add"
+                asp-page-handler="StartNewRole">
+            Thêm mới vai trò
+        </button>
+    </form>
+    <a class="btn btn-secondary" asp-page="./User">Gán vai trò cho người dùng</a>
+
+    <table class="table">
+        <tr>
+            <th>Tên</th>
+            <th>Tác vụ</th>
+        </tr>
+        @foreach (var role in @Model.roles)
+        {
+            <tr>
+                <td>
+                    @role.Name
+                </td>
+
+                <td>
+                    <form method="POST" class="d-inline">
+                        @* <button name="Input.ID" value="@role.Id" class="btn btn-success btn-sm" *@
+                        <button name="Input.ID" value="@role.Id" class="btn btn-primary btn-sm"
+                                asp-page="./Add" asp-page-handler="StartUpdate">
+                            Cập nhật vai trò
+                        </button>
+                    </form>
+                    @* <form method="POST" class="d-inline">
+                <button name="Input.ID" value="@role.Id" class="btn btn-success btn-sm"
+                asp-area="Admin" asp-page="/RoleClaims/Index">
+                Claims
+                </button>
+                </form> *@
+                    <form method="POST" class="d-inline">
+                        <button name="Input.ID" value="@role.Id" class="btn btn-danger btn-sm"
+                                asp-page="./Delete">
+                            Xóa vai trò
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

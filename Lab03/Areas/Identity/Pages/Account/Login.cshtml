@@ -1,0 +1,108 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+
+<head>
+    <style>
+        body {
+            background-image: url('https://bizweb.dktcdn.net/100/438/408/files/hinh-nen-giay-jordan-yody-vn-3.jpg?v=1699261402913');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+
+
+<div class="container" style="margin-top: 300px">
+
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+
+        <div class="col-xl-10 col-lg-12 col-md-9">
+
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card o-hidden border-0 shadow-lg my-5" style="background-color: wheat;">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="container">
+                            <div class="p-5">
+                                <section>
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">Đăng Nhập</h1>
+                                    </div>
+                                    <form class="user" id="account" method="post">
+                                        <hr />
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                        <div class="form-group">
+                                            <input asp-for="Input.Email" class="form-control form-control-user" type="email" autocomplete="username" aria-required="true" placeholder="Nhập Email..." />
+                                            @*  <label asp-for="Input.Email" class="form-label"></label> *@
+                                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="form-group mt-2">
+                                            <input asp-for="Input.Password" class="form-control form-control-user" type="password" autocomplete="current-password" aria-required="true" placeholder="Nhập mật khẩu..." />
+                                            @* <label asp-for="Input.Password" class="form-label"></label> *@
+                                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox small" id="customCheck">
+                                                <input type="checkbox" class="custom-control-input" asp-for="Input.RememberMe" id="customCheck" />
+                                                <label asp-for="Input.RememberMe" class="custom-control-label" for="customCheck">
+                                                    Nhớ mật khẩu?
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <button id="login-submit" type="submit" class="btn btn-primary btn-user btn-block">Đăng nhập</button>
+                                        </div>
+                                        <hr>
+                                    </form>
+                                </section>
+                                <section>
+                                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                                        <div class="text-center">
+                                            <p>
+                                                @foreach (var provider in Model.ExternalLogins!)
+                                                {
+                                                    if (provider.DisplayName == "Google")
+                                                    {
+                                                        <button type="submit" class="btn btn-danger btn-google btn-user btn-block" name="provider" value="@provider.Name" title="Đăng nhập bằng tài khoản @provider.DisplayName của bạn."><i class="fab fa-google fa-fw"></i>  Đăng nhập với @provider.DisplayName</button>
+                                                    }
+                                                    if (provider.DisplayName == "Facebook")
+                                                    {
+                                                        <button type="submit" class="btn btn-info btn-facebook btn-user btn-block" name="provider" value="@provider.Name" title="Đăng nhập bằng tài khoản @provider.DisplayName của bạn."><i class="fab fa-facebook-f fa-fw"></i>  Đăng nhập với @provider.DisplayName</button>
+                                                    }
+                                                }
+                                            </p>
+                                        </div>
+                                    </form>
+
+                                    <hr>
+                                    <div class="text-center">
+                                        <a class="small" id="forgot-password" asp-page="./ForgotPassword" style="color: black;">Quên mật khẩu?</a>
+                                    </div>
+                                    <div class="text-center">
+                                        <a class="small" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" style="color: black;">Đăng kí tài khoản mới</a>
+                                    </div>
+
+                                </section>
+                            </div>
+                        </div>
+                        @section Scripts {
+                            <partial name="_ValidationScriptsPartial" />
+                        }
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

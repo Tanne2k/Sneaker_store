@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Lab03.Models.Discount>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div>
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800 text-center">Danh sách mã giảm giá</h1>
+    <div class="d-flex justify-content-end mb-3 mr-1">
+        <a asp-action="Create" class="btn btn-primary">Tạo mới</a>
+    </div>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Mã giảm giá</th>
+                            <th>Phầm trăm giảm</th>
+                            <th>Hạn sử dụng</th>
+                            <th>Số lượng</th>
+                            <th>Lựa chọn</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Code)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Percentage)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Expdate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Remain)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.IdDiscount"><i class="fa fa-pen text-warning"></i></a> |
+                                    <a asp-action="Details" asp-route-id="@item.IdDiscount"><i class="fa fa-info"></i></a> |
+                                    <a asp-action="Delete" asp-route-id="@item.IdDiscount"><i class="fa fa-trash text-danger"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,50 @@
+﻿@model Order
+@{
+    ViewData["Title"] = "Checkout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="py-5 mb-5" style="margin-top: 100px">
+    <h2>Xác nhận đặt hàng!</h2>
+    <form asp-action="Checkout" method="post" class="py-5 mb-5">
+        <div class="form-group">
+            <label asp-for="Firstname">Họ</label>
+            <input asp-for="Firstname" class="form-control" />
+            <span asp-validation-for="Firstname" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Lastname">Tên</label>
+            <input asp-for="Lastname" class="form-control" />
+            <span asp-validation-for="Lastname" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ShippingAddress">Địa chỉ giao hàng</label>
+            <input asp-for="ShippingAddress" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Numberphone">Số Điện Thoại</label>
+            <input asp-for="Numberphone" class="form-control" />
+            <span asp-validation-for="Numberphone" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Notes">Ghi chú</label>
+<textarea asp-for="Notes" class="form-control"></textarea>
+        </div>
+
+        @* <button type="submit" class="btn btn-primary">Đặt mua</button> *@
+        <div style="margin-top: 30px">
+            <button type="submit" class="btn btn-primary">Đặt mua</button> |
+
+            <a asp-controller="ShoppingCart" asp-action="Index" style="text-decoration: none;">
+                <button type="button" class="btn btn-warning ms-2" style="width: 100px;">
+                    <i class="bi bi-arrow-return-left"></i>
+                </button>
+            </a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

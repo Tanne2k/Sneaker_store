@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewData["Title"] = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Single Page Header start -->
+<div class="container-fluid contact " style="margin-top: 150px">
+    <h1 class="text-center text-black display-6">Liên hệ</h1>
+    <ol class="breadcrumb justify-content-center mb-0">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+        @* <li class="breadcrumb-item active text-black"><a href="@Url.Action("Contact", "Home")">Liên hệ</a></li> *@
+        <li class="breadcrumb-item active text-black">Liên hệ</li>
+    </ol>
+</div>
+<!-- Single Page Header End -->
+
+<!-- Contact Start -->
+
+<div class="container-fluid contact ">
+    <div class="container py-5">
+        <div class="p-5 bg-light rounded">
+            <div class="row g-4">
+
+                <div class="col-lg-12">
+                    <div class="h-100 rounded">
+                        <iframe class="rounded w-100"
+                                style="height: 400px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387191.33750346623!2d-73.97968099999999!3d40.6974881!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sbd!4v1694259649153!5m2!1sen!2sbd"
+                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <form action="" class="">
+
+                        @* <div class="block-body expand-block">
+                            <h3 class="title module-title block-title">CHỨNG NHẬN</h3>
+                            <div class="block-wrapper">
+                                <div class="block-content  block-html">
+                                    <a href="https://www.dmca.com/Protection/Status.aspx?ID=1ed4cd9e-5ee4-4b63-95dc-c70388edd3cb&amp;refurl=https://Sixty.vn/" title="DMCA.com Protection Status" class="dmca-badge"> <img src="https://images.dmca.com/Badges/DMCA_logo-grn-btn150w.png?ID=1ed4cd9e-5ee4-4b63-95dc-c70388edd3cb" alt="DMCA.com Protection Status"></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+
+                                    <p>&nbsp;</p>
+
+                                    <p><a href="http://online.gov.vn/HomePage/CustomWebsiteDisplay.aspx?DocId=46045" style="text-align: -webkit-center;" target="_blank"><img alt="chứng nhận bộ công thương" src="https://myshoes.vn/image/catalog/logo/logo-bct.png" style="width:70%"></a></p>
+
+                                    <p>&nbsp;</p>
+
+                                    <p>&nbsp;</p> ; margin-top: 20px;
+
+                                </div>
+                            </div>
+                        </div> *@
+
+                        <div class="block-body expand-block" style="text-align: center;">
+                            <h3 class="title module-title block-title">CHỨNG NHẬN</h3>
+                            <div class="block-wrapper">
+                                <div class="block-content block-html">
+
+                                    <p>&nbsp;</p>
+
+                                    <a href="https://www.dmca.com/Protection/Status.aspx?ID=1ed4cd9e-5ee4-4b63-95dc-c70388edd3cb&amp;refurl=https://Sixty.vn/" title="DMCA.com Protection Status" class="dmca-badge" style="display: inline-block"> <img src="https://images.dmca.com/Badges/DMCA_logo-grn-btn150w.png?ID=1ed4cd9e-5ee4-4b63-95dc-c70388edd3cb" alt="DMCA.com Protection Status"></a>
+                                    <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+
+                                    <p>&nbsp;</p>
+
+                                    <p><a href="http://online.gov.vn/HomePage/CustomWebsiteDisplay.aspx?DocId=46045" target="_blank"><img alt="chứng nhận bộ công thương" src="https://myshoes.vn/image/catalog/logo/logo-bct.png" style="width:45%"></a></p>
+
+                                    @* <p>&nbsp;</p> *@
+
+                                    <p><a href="http://online.gov.vn/HomePage/CustomWebsiteDisplay.aspx?DocId=46045" target="_blank"><img alt="Đã Đăng ký bộ công thương" src="https://hvn.vn/wp-content/uploads/2021/05/Logo-thong-bao-mau-do.png" style="width:70%, margin-top: 5px;"></a></p>
+
+                                    <p>&nbsp;</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        @* <input type="text" class="w-100 form-control border-0 py-3 mb-4" placeholder="Your Name">
+                        <input type="email" class="w-100 form-control border-0 py-3 mb-4" placeholder="Enter Your Email">
+                        <textarea class="w-100 form-control border-0 mb-4" rows="5" cols="10" placeholder="Your Message"></textarea>
+                        <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary " type="submit">Submit</button> *@
+                    </form>
+                </div>
+                <div class="col-lg-5">
+                    <div class="d-flex p-4 rounded mb-4 bg-white">
+                        <i class="fas fa-map-marker-alt fa-2x text-primary me-4"></i>
+                        <div>
+                            <h4>Address</h4>
+                            <p class="mb-2">123 Street New York.USA</p>
+                        </div>
+                    </div>
+                    <div class="d-flex p-4 rounded mb-4 bg-white">
+                        <i class="fas fa-envelope fa-2x text-primary me-4"></i>
+                        <div>
+                            <h4>Mail Us</h4>
+                            <p class="mb-2">sixty@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="d-flex p-4 rounded mb-4 bg-white">
+                        <i class="fa fa-phone-alt fa-2x text-primary me-4"></i>
+                        <div>
+                            <h4>Telephone</h4>
+                            <p class="mb-2">(+012) 3456 7890</p>
+                        </div>
+                    </div>
+                    <div class="d-flex p-4 rounded bg-white">
+                        <i class="fa fa-check fa-2x text-primary me-4"></i>
+                        <div>
+                            <h4>Support</h4>
+                            <p class="mb-2">About 2,000 employee</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact End -->

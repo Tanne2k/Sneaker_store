@@ -1,0 +1,241 @@
+﻿@{
+    ViewData["Title"] = "Bài viết";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@* Thêm các banner động vào trang *@
+@* <div id="left-banner" class="fixed-banner">
+    <a asp-controller="Product" asp-action="Index"><img src="https://storage.pixteller.com/designs/designs-images/2020-12-21/05/sneakers-sport-gym-sale-banner-1-5fe0c473ed563.png" class="img-fluid w-100 rounded banner-img" alt="Left Banner"></a>
+</div>
+<div id="right-banner" class="fixed-banner">
+    <a asp-controller="Product" asp-action="Index"><img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/insta-story-blue-sport-shoe-for-sale-design-template-3ee8dd448b63b9e7a91dd7febd685cc2_screen.jpg?ts=1658317522" class="img-fluid w-100 rounded banner-img" alt="Right Banner"></a>
+</div> *@
+
+<style>
+    .fixed-banner {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-0%);
+        width: 250px; /* Điều chỉnh chiều rộng của banner */
+        z-index: 1000;
+    }
+
+    #left-banner {
+        left: 20px; /* Điều chỉnh khoảng cách từ banner đến lề trái */
+    }
+
+    #right-banner {
+        right: 20px; /* Điều chỉnh khoảng cách từ banner đến lề phải */
+    }
+
+        #left-banner img, #right-banner img {
+            width: 100%;
+            height: 900px; /* Điều chỉnh chiều cao của banner */
+            object-fit: cover; /* Đảm bảo hình ảnh được cắt phù hợp */
+            transition: transform 0.3s ease-in-out; /* Hiệu ứng chuyển đổi mượt mà */
+        }
+
+    .banner-img:hover {
+        transform: scale(1.2); /* Phóng to 1.2 lần khi lia chuột */
+    }
+</style>
+
+<div class="py-5 mb-5" style="margin-top: 120px">
+    <main class="main-content">
+        <div class="container-fluid contact">
+            <h1 class="text-center text-black display-6">24H thời trang</h1>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+                <li class="breadcrumb-item active text-black">Bài viết</li>
+            </ol>
+        </div>
+        <div class="mt-4"></div>
+        <div class="list-article-content blog-posts row gx-4 gy-4">
+            <!-- Adjusted classes for spacing -->
+            <!-- Begin: Nội dung blog -->
+
+            <article class="blog-loop col-md-4 col-sm-6 col-xs-12">
+                <div class="blog-post">
+                    <div class="blog-post__image">
+                        @* <a href="/blogs/news/cach-chon-size-chinh-xac-nhat-khi-mua-giay-online" class="blog-post-thumbnail" title="CÁCH CHỌN SIZE CHÍNH XÁC NHẤT KHI MUA GIÀY ONLINE" rel="nofollow"> *@
+                        <a asp-area="" asp-action="AboutUs" asp-controller="Home" class="blog-post-thumbnail" title="CÁCH CHỌN SIZE CHÍNH XÁC NHẤT KHI MUA GIÀY ONLINE" rel="nofollow">
+                            <img src="//file.hstatic.net/1000361048/article/slideshow_1_2d0ac4870c4843b1b65f5e4d163050c9_grande.jpg" alt="CÁCH CHỌN SIZE CHÍNH XÁC NHẤT KHI MUA GIÀY ONLINE">
+                        </a>
+                    </div>
+                    <div class="blog-post__detail">
+                        <h3 class="blog-post-title">
+                            <a asp-area="" asp-action="AboutUs" asp-controller="Home" title="CÁCH CHỌN SIZE CHÍNH XÁC NHẤT KHI MUA GIÀY ONLINE">CÁCH CHỌN SIZE CHÍNH XÁC NHẤT KHI MUA GIÀY ONLINE</a>
+                        </h3>
+                        <div class="blog-post-meta">
+                            <span class="author vcard">Người viết: Online Sneaker Store</span>
+                            <span class="date">
+                                <time pubdate="" datetime="2021-05-30">30.05.2021</time>
+                            </span>
+                        </div>
+                        <p class="entry-content">I. MỘT SỐ LƯU Ý TRƯỚC KHI CHỌN SIZETrước khi đi vào hướng dẫn cách để chọn size chuẩn nhất khi mua giày online, OSS...</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="blog-loop col-md-4 col-sm-6 col-xs-12">
+                <div class="blog-post">
+                    <div class="blog-post__image">
+                        <a asp-area="" asp-action="AboutUs" asp-controller="Home" class="blog-post-thumbnail" title="Online Sneaker Store chính thức sở hữu Sole Station" rel="nofollow">
+                            <img src="//file.hstatic.net/1000361048/article/img_7743_ecfedf03b69f4bdfa794665968899890_grande.jpg" alt="Online Sneaker Store chính thức sở hữu Sole Station">
+                        </a>
+                    </div>
+                    <div class="blog-post__detail">
+                        <h3 class="blog-post-title">
+                            <a asp-area="" asp-action="AboutUs" asp-controller="Home" title="Online Sneaker Store chính thức sở hữu Sole Station">Online Sneaker Store chính thức sở hữu Sole Station</a>
+                        </h3>
+                        <div class="blog-post-meta">
+                            <span class="author vcard">Người viết: Online Sneaker Store</span>
+                            <span class="date">
+                                <time pubdate="" datetime="2020-11-04">04.11.2020</time>
+                            </span>
+                        </div>
+                        <p class="entry-content">Cách đây 4 năm,&nbsp;HNBMG&nbsp;đã có một bài viết bình chọn&nbsp;top 9 cửa hàng sneaker uy tín nhất tại TP.HCM. Bài viết đến từ chính kinh...</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="blog-loop col-md-4 col-sm-6 col-xs-12">
+                <div class="blog-post">
+                    <div class="blog-post__image">
+                        <a asp-area="" asp-action="AboutUs" asp-controller="Home" class="blog-post-thumbnail" title="Run-DMC x adidas Superstar 50th Anniversary - collab vĩ đại và đình đám nhất của dòng giày adidas Superstar." rel="nofollow">
+                            <img src="//file.hstatic.net/1000361048/article/121471937_4053624404667346_7521303153856538269_n_9c59029b4059456db5ea0b19fc36fbca_grande.jpg" alt="Run-DMC x adidas Superstar 50th Anniversary - collab vĩ đại và đình đám nhất của dòng giày adidas Superstar.">
+                        </a>
+                    </div>
+                    <div class="blog-post__detail">
+                        <h3 class="blog-post-title">
+                            <a asp-area="" asp-action="AboutUs" asp-controller="Home" title="Run-DMC x adidas Superstar 50th Anniversary - collab vĩ đại và đình đám nhất của dòng giày adidas Superstar.">Run-DMC x adidas Superstar 50th Anniversary - collab vĩ đại và đình đám nhất của dòng giày adidas Superstar.</a>
+                        </h3>
+                        <div class="blog-post-meta">
+                            <span class="author vcard">Người viết: OSS</span>
+                            <span class="date">
+                                <time pubdate="" datetime="2020-10-16">16.10.2020</time>
+                            </span>
+                        </div>
+                        <p class="entry-content">Vào năm 1986, nhóm nhạc hip-hop Run-DMC đã tung ra một bài nhạc với tên gọi 'My adidas' để thể hiện sự yêu thích của...</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="blog-loop col-md-4 col-sm-6 col-xs-12">
+                <div class="blog-post">
+                    <div class="blog-post__image">
+                        <a asp-area="" asp-action="AboutUs" asp-controller="Home" class="blog-post-thumbnail" title="Online Sneaker Store đã chính thức hỗ trợ trả góp thông qua mPos." rel="nofollow">
+                            <img src="//file.hstatic.net/1000361048/article/mpos_up_27d38674d5fe41378137e7e98ef0af63_9f06d719485f4a249a10b2851b3d5655_grande.jpg" alt="Online Sneaker Store đã chính thức hỗ trợ trả góp thông qua mPos.">
+                        </a>
+                    </div>
+                    <div class="blog-post__detail">
+                        <h3 class="blog-post-title">
+                            <a asp-area="" asp-action="AboutUs" asp-controller="Home" title="Online Sneaker Store đã chính thức hỗ trợ trả góp thông qua mPos.">Online Sneaker Store đã chính thức hỗ trợ trả góp thông qua mPos.</a>
+                        </h3>
+                        <div class="blog-post-meta">
+                            <span class="author vcard">Người viết: OSS</span>
+                            <span class="date">
+                                <time pubdate="" datetime="2020-10-08">08.10.2020</time>
+                            </span>
+                        </div>
+                        <p class="entry-content">Trong thời gian hiện tại các giao dịch trả góp chỉ hỗ trợ cho các khách hàng đang là chủ thẻ tín dụng (thẻ còn...</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="blog-loop col-md-4 col-sm-6 col-xs-12">
+                <div class="blog-post">
+                    <div class="blog-post__image">
+                        <a asp-area="" asp-action="AboutUs" asp-controller="Home" class="blog-post-thumbnail" title="Soi giày khủng New Balance 327 của Sơn Tùng MT-P" rel="nofollow">
+                            <img src="//file.hstatic.net/1000361048/article/11511575333_7087522045210446697_n_11ee887702a6463a9ffa9ed024e56e17_2d8e71e1e761401abd5095b1ff26b2fc_grande.jpg" alt="Soi giày khủng New Balance 327 của Sơn Tùng MT-P">
+                        </a>
+                    </div>
+                    <div class="blog-post__detail">
+                        <h3 class="blog-post-title">
+                            <a asp-area="" asp-action="AboutUs" asp-controller="Home" title="Soi giày khủng New Balance 327 của Sơn Tùng MT-P">Soi giày khủng New Balance 327 của Sơn Tùng MT-P</a>
+                        </h3>
+                        <div class="blog-post-meta">
+                            <span class="author vcard">Người viết: OSS</span>
+                            <span class="date">
+                                <time pubdate="" datetime="2020-06-10">10.06.2020</time>
+                            </span>
+                        </div>
+                        <p class="entry-content">Ngày hôm qua chàng ca sĩ điển trai đã tái xuất mạng xã hội bằng một tấm ảnh pose outfit quen thuộc nhưng thứ mà...</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="blog-loop col-md-4 col-sm-6 col-xs-12">
+                <div class="blog-post">
+                    <div class="blog-post__image">
+                        <a asp-area="" asp-action="AboutUs" asp-controller="Home" class="blog-post-thumbnail" title="Patagonia Black Hole® Mini MLC™ 26L - balo cho người hay đi công tác" rel="nofollow">
+                            <img src="//file.hstatic.net/1000361048/article/gray__4__c0e4230d63594d4491cec7fe7588202c_grande.jpg" alt="Patagonia Black Hole® Mini MLC™ 26L - balo cho người hay đi công tác">
+                        </a>
+                    </div>
+                    <div class="blog-post__detail">
+                        <h3 class="blog-post-title">
+                            <a asp-area="" asp-action="AboutUs" asp-controller="Home" title="Patagonia Black Hole® Mini MLC™ 26L - balo cho người hay đi công tác">Patagonia Black Hole® Mini MLC™ 26L - balo cho người hay đi công tác</a>
+                        </h3>
+                        <div class="blog-post-meta">
+                            <span class="author vcard">Người viết: OSS</span>
+                            <span class="date">
+                                <time pubdate="" datetime="2020-06-02">02.06.2020</time>
+                            </span>
+                        </div>
+                        <p class="entry-content">Quay trở lại với dòng túi xách và balo cao cấp - Online Sneaker Store nay đã nhập về thiết kế chính hãng Patagonia Black...</p>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </main>
+</div>
+
+<style>
+    /* Custom CSS for blog post spacing */
+    .blog-post {
+        margin-bottom: 30px;
+    }
+
+    .blog-post__image img {
+        width: 100%;
+        height: auto;
+        transition: transform 0.3s ease-in-out;
+    }
+
+        .blog-post__image img:hover {
+            transform: scale(1.1);
+        }
+
+    .blog-post-title a {
+        color: #000;
+        text-decoration: none;
+    }
+
+        .blog-post-title a:hover {
+            text-decoration: underline;
+        }
+
+    .blog-post-meta {
+        margin-bottom: 10px;
+    }
+
+    .entry-content {
+        color: #333;
+    }
+
+</style>
+
+<script>
+    // JS để cập nhật vị trí banner khi trang được cuộn (nếu cần)
+    window.addEventListener('scroll', function () {
+        var leftBanner = document.getElementById('left-banner');
+        var rightBanner = document.getElementById('right-banner');
+        var scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+
+
+        banners.forEach(function (banner) {
+            banner.style.top = (window.scrollY + window.innerHeight / 2) + 'px';
+        });
+    });
+</script>

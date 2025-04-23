@@ -1,0 +1,135 @@
+﻿@* @model IEnumerable<Lab03.Models.Product> *@
+@model X.PagedList.IPagedList<Lab03.Models.Product>
+@using X.PagedList.Mvc.Core
+
+@{
+    ViewData["Title"] = "Phantrang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@* <div class="container-fluid contact " style="margin-top: 80px">
+    <h1>Tất cả sản phẩm</h1>
+</div> *@
+
+<div class="container-fluid contact " style="margin-top: 150px">
+    <h1 class="text-center text-black display-6">Tất cả sản phẩm</h1>
+    <ol class="breadcrumb justify-content-center mb-0">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+        <li class="breadcrumb-item active text-black"><a href="@Url.Action("PhanTrang", "Product")">Tất cả sản phẩm</a></li>
+    </ol>
+</div>
+
+@* <p>
+    <a asp-action="Create">Create New</a>
+</p> *@
+
+<div class="container-fluid contact " style="margin-top: 70px">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @* @Html.DisplayNameFor(model => model.Name) *@
+                    Tên 
+                </th>
+                <th>
+                    @* @Html.DisplayNameFor(model => model.Price) *@
+                    Giá
+                </th>
+                <th>
+                    @* @Html.DisplayNameFor(model => model.Description) *@
+                    Miêu tả
+                </th>
+                <th>
+                    @* @Html.DisplayNameFor(model => model.ImageUrl) *@
+                    Ảnh
+                </th>
+                <th>    
+                    Hành động
+                </th>
+                @* <th>
+                @Html.DisplayNameFor(model => model.Category)
+                Category
+                </th> *@
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @* @Html.DisplayFor(modelItem => item.Price) *@
+                        @item.Price.ToString("#,##0") Vnđ
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @* @Html.DisplayFor(modelItem => item.ImageUrl) *@
+                        <img src="@item.ImageUrl" width="100" />
+                    </td>
+                    
+                    <td><a asp-action="Details" asp-route-id="@item.Id">Chi tiết</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+<style>
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center; /* Căn chỉnh các thành phần theo chiều dọc */
+        list-style: none;
+        padding: 8px 0;
+    }
+
+        .pagination li {
+            margin: 0 5px; /* Khoảng cách giữa các ô trang */
+        }
+
+            .pagination li a {
+                display: inline-block;
+                padding: 8px 12px;
+                background-color: white; /* Màu nền mặc định */
+                color: black; /* Màu chữ mặc định */
+                text-decoration: none;
+                border-radius: 5px;
+                transition: background-color 0.3s; /* Hiệu ứng màu khi di chuột */
+                box-shadow: none; /* Xóa bóng đổ mặc định */
+                line-height: 1; /* Thiết lập line-height cố định */
+            }
+
+                .pagination li a:hover {
+                    background-color: yellow; /* Màu vàng khi di chuột vào */
+                }
+
+            .pagination li.active a {
+                background-color: #45a049; /* Màu xanh lá đậm cho ô trang đã chọn */
+                box-shadow: none; /* Xóa bóng đổ của ô trang đã chọn */
+            }
+
+            /* Thiết lập kích thước của con số trong ô trang */
+            .pagination li a span {
+                display: inline-block;
+                width: 100%; /* Đảm bảo rằng con số chiếm toàn bộ chiều rộng của ô trang */
+                text-align: center; /* Căn giữa nội dung trong ô trang */
+            }
+</style>
+
+<div>
+    <ul class="pagination">
+        <li><a href="@Url.Action("Phantrang", "Product", new { page = 1 })">Trang đầu</a></li>  
+        @Html.PagedListPager(Model, page => Url.Action("Phantrang", "Product", new { page = page }))
+        <li><a href="@Url.Action("Phantrang", "Product", new { page = Model.PageCount })">Trang cuối</a></li>
+    </ul>
+</div>
+
+

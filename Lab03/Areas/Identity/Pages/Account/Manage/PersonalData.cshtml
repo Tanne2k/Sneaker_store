@@ -1,0 +1,32 @@
+﻿@page
+@model PersonalDataModel
+@{
+    // ViewData["Title"] = "Personal Data";
+    ViewData["Title"] = "Dữ liệu cá nhân";
+    ViewData["ActivePage"] = ManageNavPages.PersonalData;
+}
+
+<h3>@ViewData["Title"]</h3>
+
+<div class="row">
+    <div class="col-md-6">
+        @* <p>Your account contains personal data that you have given us. This page allows you to download or delete that data.</p> *@
+        <p>Tài khoản của bạn có chứa các dữ liệu các nhân mà bạn đã cung cấp cho chúng tôi. Trang này luôn theo dõi bạn để tải xuống hoặc xóa các dữ liệu này!</p>
+        <p>
+            @* <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong> *@
+            <strong>Xóa các dữ liệu này sẽ vĩnh viễn biến mất và nó không thể khôi phục!</strong>
+        </p>
+        <form id="download-data" asp-page="DownloadPersonalData" method="post">
+            @* <button class="btn btn-primary" type="submit">Download</button> *@
+            <button class="btn btn-primary" type="submit">Tải xuống</button>
+        </form>
+        <p>
+            @* <a id="delete" asp-page="DeletePersonalData" class="btn btn-danger">Delete</a> *@
+            <a id="delete" asp-page="DeletePersonalData" class="btn btn-danger">Xóa</a>
+        </p>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,132 @@
+﻿
+
+<div id="search-container">
+
+    <form id="searchForm" asp-action="Timkiem" asp-controller="Product" class="d-flex">
+        <input type="search" class="form-control p-3" placeholder="Nhập tên sản phẩm ..." aria-describedby="search-icon-1" name="query" id="query">
+        <button type="button" class="btn" id="searchBtn">
+            <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+        </button>
+    </form>
+    <div id="suggestion-box"></div> <!-- Container để hiển thị các từ khóa gợi ý -->
+
+    <div style="margin-top: 20px;"></div> @* cho 2 form cách nhau 1 xíu *@
+
+</div>
+
+<div>
+    <style>
+        #search-container {
+            position: relative;
+        }
+
+        #suggestion-box {
+            display: none;
+            position: absolute;
+            width: calc(100% - 2px); /* Đảm bảo đúng chiều rộng của ô nhập liệu */
+            top: calc(100% + 5px); /* Đặt vị trí bên dưới ô nhập liệu */
+            background-color: #ffffff;
+            border: 1px solid #000000; /* Đường viền đen */
+            border-top: none;
+            z-index: 9999;
+        }
+
+        .suggestion {
+            padding: 10px;
+            border-bottom: 1px solid #000000; /* Đường viền đen giữa các từ khóa */
+            cursor: pointer;
+        }
+
+            .suggestion:last-child {
+                border-bottom: none; /* Loại bỏ đường viền dưới của từ khóa cuối cùng */
+            }
+
+        .bg-cover {
+            background-size: contain; /* hoặc background-size: 50%; */
+        }
+
+    </style>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // auto
+        $("#query").keyup(function () {
+            var query = $(this).val();
+            $.ajax({
+                url: "/Product/Autocomplete",
+                type: "GET",
+                data: { query: query },
+                success: function (data) {
+                    $("#suggestion-box").empty();
+                    if (data.length > 0) {
+                        $("#suggestion-box").css("display", "block");
+                        $.each(data, function (index, value) {
+                            $("#suggestion-box").append("<div class='suggestion'>" + value + "</div>");
+                        });
+                    } else {
+                        $("#suggestion-box").css("display", "none");
+                    }
+                }
+            });
+        });
+
+        $(document).on("click", ".suggestion", function () {
+            var selectedSuggestion = $(this).text();
+            $("#query").val(selectedSuggestion);
+            $("#suggestion-box").css("display", "none");
+        });
+
+        // Search button click event
+        $("#searchBtn").click(function () {
+            var query = $("#query").val();
+            // if (query.trim() === "") {
+            //     alert("Vui lòng nhập từ khóa tìm kiếm.");
+            //     return; // Dừng việc thực thi nếu người dùng không nhập gì
+            // }
+
+          //   if (query.trim() === "") {
+          //       Swal.fire({
+          //           title: "Vui lòng nhập từ khóa tìm kiếm 🥰",
+          //           width: 600,
+          //           padding: "3em",
+          //           color: "#716add",
+          //           background: "#fff url(/images/trees.png)",
+          //           backdrop: `
+          //   rgba(0,0,123,0.4)
+          //   url("/images/nyan-cat.gif")
+          //   left top
+          //   no-repeat
+          // `
+          //       });
+          //       return; // Dừng việc thực thi nếu người dùng không nhập gì
+          //   }
+
+            if (query.trim() === "") {
+                Swal.fire({
+                    title: "Vui lòng nhập tên sản phẩm 🥰",
+                    width: 600,
+                    padding: "3em",
+                    color: "#716add",
+                    background: "#fff url(/images/trees.png)",
+                    // url("/images/nyan-cat.gif") dòng này của backdrop
+                    backdrop: `
+                rgba(0,0,123,0.4)
+                
+                left top
+                no-repeat`
+                ,
+                    customClass: {
+                        background: 'bg-cover'
+                    }
+                });
+                return; // Dừng việc thực thi nếu người dùng không nhập gì
+            }
+
+
+            $("#searchForm").submit();
+        });
+
+    });
+</script>

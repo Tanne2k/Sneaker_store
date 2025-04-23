@@ -1,0 +1,48 @@
+﻿@model Lab03.Models.Discount
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h4>Mã giảm giá</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Code" class="control-label">Mã giảm giá</label>
+                    <input asp-for="Code" class="form-control" />
+                    <span asp-validation-for="Code" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Percentage" class="control-label">Phần trăm giảm</label>
+                    <input asp-for="Percentage" class="form-control" />
+                    <span asp-validation-for="Percentage" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Expdate" class="control-label">Hạn sử dụng</label>
+                    <input asp-for="Expdate" class="form-control" />
+                    <span asp-validation-for="Expdate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Remain" class="control-label">Số lượng</label>
+                    <input asp-for="Remain" class="form-control" />
+                    <span asp-validation-for="Remain" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    @* <input type="submit" value="Create" class="btn btn-primary" /> *@
+                    <input type="submit" value="Tạo" class="btn btn-danger" /> |
+                    <a asp-action="Index" class="btn btn-primary"> Quay về</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @* <div>
+    <a asp-action="Index">Quay về</a>
+    </div> *@
+
+</div>

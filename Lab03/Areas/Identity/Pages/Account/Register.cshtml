@@ -1,0 +1,85 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Đăng kí";
+}
+
+<head>
+    <style>
+        body {
+            background-image: url('https://bizweb.dktcdn.net/100/438/408/files/hinh-nen-giay-jordan-yody-vn-50.jpg?v=1699261446765');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+
+<div class="container" style="margin-top: 300px">
+
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card o-hidden border-0 shadow-lg my-5" style="background-color: wheat;">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+
+                <div class="container">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">Đăng ký</h1>
+                        </div>
+
+                        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="user">
+
+                            <hr />
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group mt-2">
+                                <input asp-for="Input.FullName" class="form-control form-control-user" autocomplete="fullname" aria-required="true" type="text" placeholder="Họ tên" />
+                                <span asp-validation-for="Input.FullName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2">
+                                <input asp-for="Input.Email" class="form-control form-control-user" autocomplete="username" aria-required="true" placeholder="Địa chỉ email" />
+                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2">
+                                <input asp-for="Input.Password" class="form-control form-control-user" autocomplete="new-password" aria-required="true" type="password" placeholder="Mật khẩu" />
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2">
+                                <input asp-for="Input.ConfirmPassword" class="form-control form-control-user" autocomplete="new-password" aria-required="true" type="password" placeholder="Nhập lại mật khẩu" />
+                                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                            </div>
+
+                            <div class="text-center mt-2">
+                                <button id="registerSubmit" type="submit" class="btn btn-primary btn-user btn-block">Đăng kí</button>
+                            </div>
+                        </form>
+                        <hr />
+                        <section>
+                            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                                <div class="text-center">
+                                    <p>
+                                        @foreach (var provider in Model.ExternalLogins!)
+                                        {
+                                            if (provider.DisplayName == "Google")
+                                            {
+                                                <button type="submit" class="btn btn-danger btn-google btn-user btn-block" name="provider" value="@provider.Name" title="Đăng nhập bằng tài khoản @provider.DisplayName của bạn."><i class="fab fa-google fa-fw"></i>  Đăng kí với @provider.DisplayName</button>
+                                            }
+                                            if (provider.DisplayName == "Facebook")
+                                            {
+                                                <button type="submit" class="btn btn-info btn-facebook btn-user btn-block" name="provider" value="@provider.Name" title="Đăng nhập bằng tài khoản @provider.DisplayName của bạn."><i class="fab fa-facebook-f fa-fw"></i>  Đăng kí với @provider.DisplayName</button>
+                                            }
+                                        }
+                                    </p>
+                                </div>
+                            </form>
+                        </section>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+</div>

@@ -1,0 +1,88 @@
+﻿@model Lab03.Models.Product
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h1>Chỉnh sửa</h1>
+
+    <h4>Sản phẩm</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Update" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="Name">Tên sản phẩm</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price">Giá</label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description">Mô tả ngắn</label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MoTaDai">Mô tả dài</label>
+                    <textarea asp-for="MoTaDai" class="form-control"></textarea>
+                    <span asp-validation-for="MoTaDai" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ColorId">Màu sắc</label>
+                    <select asp-for="ColorId" asp-items="@ViewBag.Colors" class="form-control"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SizeId">Kích cỡ</label>
+                    <select asp-for="SizeId" asp-items="@ViewBag.Sizes" class="form-control"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CategoryId">Loại sản phẩm</label>
+                    <select asp-for="CategoryId" asp-items="@ViewBag.Categories" class="form-control"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ImageUrl">Ảnh chính</label>
+                    <input type="file" asp-for="ImageUrl" class="form-control" />
+                    <img src="@Model.ImageUrl" alt="Product Image" style="max-width: 200px;" />
+                </div>
+                <div class="form-group">
+                    @* <label asp-for="ImageUrl">Product Image</label> *@
+                    <label asp-for="SideImage1">Ảnh phụ 1</label>
+                    <input type="file" asp-for="SideImage1" class="form-control" />
+                    <img src="@Model.SideImage1" alt="Product Image" style="max-width: 200px;" />
+                </div>
+                <div class="form-group">
+                    @* <label asp-for="ImageUrl">Product Image</label> *@
+                    <label asp-for="SideImage2">Ảnh phụ 2</label>
+                    <input type="file" asp-for="SideImage2" class="form-control" />
+                    <img src="@Model.SideImage2" alt="Product Image" style="max-width: 200px;" />
+                </div>
+                <div class="form-group">
+                    @* <label asp-for="ImageUrl">Product Image</label> *@
+                    <label asp-for="SideImage3">Ảnh phụ 3</label>
+                    <input type="file" asp-for="SideImage3" class="form-control" />
+                    <img src="@Model.SideImage3" alt="Product Image" style="max-width: 200px;" />
+                </div>
+                <button type="submit" class="btn btn-danger">Chỉnh sửa</button> |
+                <a asp-action="Index" class="btn btn-primary">Quay về</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('MoTaDai', {
+            filebrowserUploadUrl: '/Admin/Products/Upload',
+            filebrowserUploadMethod: 'form'
+        });
+    </script>
+}

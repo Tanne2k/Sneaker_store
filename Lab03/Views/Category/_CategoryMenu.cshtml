@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Lab03.Models.Category>
+
+<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    @foreach (var category in Model)
+    {
+        <li class="dropdown-submenu">
+            <a class="dropdown-item dropdown-toggle" href="#">@category.Name</a>
+            <ul class="dropdown-menu">
+                @foreach (var product in category.Products)
+                {
+                    <li>
+                        <a class="dropdown-item" href="@Url.Action("Details", "Product", new { id = product.Id })">@product.Name</a>
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+</ul>
+
+<style>
+    /* Dropdown menu */
+    .dropdown-menu {
+        position: absolute;
+        display: none;
+        z-index: 1000;
+        float: left;
+        min-width: 160px;
+        padding: 5px 0;
+        margin: 0;
+        font-size: 14px;
+        text-align: left;
+        list-style: none;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 4px;
+    }
+
+        .dropdown-menu .dropdown-item {
+            display: block;
+            width: 100%;
+            padding: 3px 20px;
+            clear: both;
+            font-weight: 400;
+            color: #212529;
+            text-align: inherit;
+            white-space: nowrap;
+            background-color: transparent;
+            border: 0;
+        }
+
+    .dropdown-submenu {
+        position: relative;
+    }
+
+        .dropdown-submenu > .dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -6px;
+            margin-left: -1px;
+            border-radius: 0 6px 6px 6px;
+        }
+
+        .dropdown-submenu:hover > .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-submenu > a:after {
+            display: block;
+            content: " ";
+            float: right;
+            width: 0;
+            height: 0;
+            margin-top: 5px;
+            border-color: transparent;
+            border-style: solid;
+            border-width: 5px 0 5px 5px;
+            border-left-color: #ccc;
+        }
+
+        .dropdown-submenu:hover > a:after {
+            border-left-color: #fff;
+        }
+
+</style>
